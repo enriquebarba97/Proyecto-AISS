@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<groupId>aiss</groupId>
+	<artifactId>project_name</artifactId>
+
+	<!-- Restlet repository -->
+	<repositories>
+		<repository>
+			<id>maven-restlet</id>
+			<name>Restlet repository</name>
+			<url>https://maven.restlet.com</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<appengine.version>1.9.71</appengine.version>	<!-- AppEngine version -->
+		<servlet.version>2.5</servlet.version>	<!-- Servlet version -->
+		<jslt.version>1.2</jslt.version>	<!-- JSLT version -->
+		<restlet.version>2.3.7</restlet.version> <!-- Restlet version -->
+		<resteasy.version>2.3.5.Final</resteasy.version> <!-- RESTEasy version -->
+		<jackson.version>2.8.2</jackson.version> <!-- Jackson version -->
+		<google.client.version>1.20.0</google.client.version> <!-- Google HTTP Client version -->
+		<junit.version>4.12</junit.version> <!-- JUnit version -->
+		<mockito.version>2.0.2-beta</mockito.version> <!-- Mockito version -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+		<archiveClasses>true</archiveClasses>
+	</properties>
+
+	<prerequisites>
+		<maven>3.3.9</maven>
+	</prerequisites>
+
+	<dependencies>
+		<!-- Compile/runtime dependencies -->
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>${appengine.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jslt.version}</version>
+		</dependency>
+
+		<!-- Test Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- Jackson 2 core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- Restlet -->
+		<dependency>
+			<groupId>org.restlet.jse</groupId>
+			<artifactId>org.restlet</artifactId>
+			<version>${restlet.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.restlet.jse</groupId>
+			<artifactId>org.restlet.ext.jackson</artifactId>
+			<version>${restlet.version}</version>
+		</dependency>
+
+		<!-- RESTEasy -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+
+		<!-- Google HTTP Client Library -->
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client</artifactId>
+			<version>${google.client.version}</version>
+		</dependency>
+
+		<!-- Google HTTP Client Library (AppEngine extension) -->
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-appengine</artifactId>
+			<version>${google.client.version}</version>
+		</dependency>
+
+		<!-- Jackson module for Google HTTP Client -->
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>${google.client.version}</version>
+		</dependency>
+
+		<!-- Google OAuth Client Library -->
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-servlet</artifactId>
+			<version>${google.client.version}</version>
+		</dependency>
+		
+		<!-- Apache Jetty for Logging -->
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>apache-jsp</artifactId>
+		    <version>9.4.15.v20190215</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+		<plugins>
+
+			<!-- Maven AppEngine plugin -->
+			<plugin>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>${appengine.version}</version>
+				<configuration>
+					<enableJarClasses>false</enableJarClasses>
+					<version>${app.version}</version>
+					<!-- Comment in the below snippet to bind to all IPs instead of just 
+						localhost -->
+					<!-- <address>0.0.0.0</address> -->
+					<port>8090</port>
+					<!-- Comment in the below snippet to enable local debugging with a remote 
+						debugger like those included with Eclipse or IntelliJ -->
+					<jvmFlags>
+						<jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
+					</jvmFlags>
+				</configuration>
+			</plugin>
+
+			<!-- Hot reload of Java and static files (http://stackoverflow.com/questions/21345177/is-there-any-way-to-trigger-the-maven-appengine-devserver-to-auto-refresh-static) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<property name="target.webapp.dir"
+									value="${project.build.directory}/${project.build.finalName}" />
+								<property name="src.webapp.dir" value="${basedir}/src/main/webapp" />
+
+								<sync verbose="true" todir="${target.webapp.dir}"
+									includeEmptyDirs="true">
+									<fileset dir="${src.webapp.dir}" />
+									<preserveintarget>
+										<include name="WEB-INF/lib/**" />
+										<include name="WEB-INF/classes/**" />
+										<include name="WEB-INF/appengine-generated/**" />
+									</preserveintarget>
+								</sync>
+
+								<!-- <sync verbose="true" todir="${target.webapp.dir}/WEB-INF/classes"> 
+									<fileset dir="${basedir}/target/classes" /> </sync> -->
+
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Code Coverage report generation -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-code-coverage-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- Hot reload of Java and static files (http://stackoverflow.com/questions/21345177/is-there-any-way-to-trigger-the-maven-appengine-devserver-to-auto-refresh-static) -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[1.6,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
