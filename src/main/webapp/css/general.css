@@ -1,0 +1,60 @@
+.logo{
+    
+	width: 20%;
+	display:block;
+	margin:auto;
+	border-radius: 20px;
+}
+.busqueda {
+	
+	display:block;
+	margin:auto;
+	
+	border-radius: 20px;
+	width: 80%;
+	padding: 0.7%;
+	border: solid 2px gray;
+	font-size: 20px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+.separador{
+	margin-top:50px;
+}
+.separador2{
+	margin-top:20px;
+}
+
+
+.enviar {
+	font-size: 17px;
+	cursor: pointer;
+	background-color: #ffffff;
+	color: #000000;
+	border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #000000;
+	border-image: initial;
+	padding: 0.5% 1.5%;
+	display:block;
+	margin:auto;
+}
+body{
+	background-color: gray;
+}
+a{	
+	
+	color: white;
+}
+.lista {
+	border-radius: 10px;
+	border: solid 3px #FFC471;
+	padding: 2%;
+	min-width: 30%;
+}
+legend {
+	font-weight: bold;
+	font-size: 17px;
+	text-align: center;
+}

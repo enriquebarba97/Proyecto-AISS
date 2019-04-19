@@ -2,28 +2,24 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello World</title>
+    <link rel="stylesheet" type="text/css" href="css/general.css">
+    <title>Book Assistant</title>
   </head>
 
   <body>
-    <h1>Book Assistant</h1>
-    <p>Integrantes del grupo:</p><br>
-    <ul>
-      <li>Barba Roque, Enrique </li>
-      <li>Bejarano Pozo, Jose Manuel</li>
-      <li>Pantoja Bas, Miguel Ángel</li>
-      <li>Pérez Plata, Juan José</li>
-    </ul>
-    <h3>Descripción:</h3>
-    <p>Los lectores siempre están ávidos por obtener nuevas piezas que consumir y realizar una elección nunca es fácil, es por eso que surge nuestro Mashup “Book Assistant” que guía al lector desde la primera etapa, la búsqueda y elección de su nueva lectura, hasta finalizar realizando su compra y adquirir su nuevo ejemplar.</p>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="helloworld">HelloWorld</a></td>
-      </tr>
-    </table>
+    <div class="separador">
+    <img class="logo" alt="logo" src="img/prueba.png">
+    </div >
+    <div class="separador">
+		<form  action="bookSearchController" method="post">
+			<input class="busqueda" type="text" name="searchQuery" placeholder="Busque por titulo, autor" required/> 
+			<div class="separador2"></div>
+			<input class="enviar" type="submit" name="searchBtn" title="search" value="buscar" >
+		</form>
+	</div>
+	<div >
+	<a href="https://ssl.reddit.com/login"> Regístrate en Reddit</a>
+	</div>
+    
   </body>
 </html>
