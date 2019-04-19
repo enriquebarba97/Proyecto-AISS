@@ -20,7 +20,7 @@ public class GoogleBooksResource {
 		//Poner parametro de entrada en formato correcto
 		String titulo= URLEncoder.encode(query, "UTF-8");
 		//Introducir url de consulta
-		String uri="https://www.googleapis.com/books/v1/volumes?q="+titulo+"&printType=books& key ="+GOOGLE_API;
+		String uri="https://www.googleapis.com/books/v1/volumes?q="+titulo+"&printType=books&key="+GOOGLE_API;
 	log.log(Level.FINE,"Google_uri:"+uri);
 		//Hacer peticion al servicio REST
 		ClientResource cr= new ClientResource(uri);
