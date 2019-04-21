@@ -11,7 +11,7 @@ public class RedditResourceTest {
 
 	@Test
 	public void testGetPostSearch() {
-		String q = "mistborn";
+		String q = "Lord of the rings";
 		RedditResource rs = new RedditResource();
 		RedditModel<Post> search = rs.getPosts(q);
 		

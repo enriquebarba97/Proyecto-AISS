@@ -1,5 +1,7 @@
 package aiss.model.resources;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.logging.*;
 
 import org.restlet.resource.ClientResource;
@@ -13,16 +15,25 @@ public class RedditResource {
 	private static final Logger log = Logger.getLogger(RedditResource.class.getName());
 	
 	public RedditModel<Post> getPosts(String q) {
-		String uri = uriBooks + "?q=" + q + "&limit=5&restrict_sr=true";
-		log.log(Level.FINE, "Reddit search URI: " + uri);
+		String uri = "";
 		RedditModel<Post> result = null;
-		ClientResource cr = new ClientResource(uri);
+		ClientResource cr = null;
 		
 		try {
+			String query = URLEncoder.encode(q, "UTF-8");
+			uri = uriBooks + "?q=" + query + "&limit=5&restrict_sr=true";
+			log.log(Level.FINE, "Reddit search URI: " + uri);
+		}catch(UnsupportedEncodingException e) {
+			log.warning("Error encoding the query");
+			log.warning(e.getMessage());
+			return null;
+		}
+					
+		try {
+			cr = new ClientResource(uri);
 			result = cr.get(RedditModel.class);
 		}catch (ResourceException e) {
-			log.warning("Error retrieving posts from Reddit");
-			log.warning(e.getMessage());
+			log.warning("Error retrieving posts from Reddit: " + cr.getResponse().getStatus());
 		}
 		
 		return result;
