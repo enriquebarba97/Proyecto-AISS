@@ -5,16 +5,26 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/general.css">
 <title>Insert title here</title>
 </head>
 <body>
 <fieldset >
-<legend >Búsqueda de : <c:out value="${param.searchQuery}"/></legend>
-<c:forEach items="${requestScope.books}" var="books">
-<img alt="img" src='<c:out value="${books.volumeInfo.imageLinks.thumbnail}"/>'>
-   
-</c:forEach>
 
+
+<img  alt="img" src='<c:out value="${books.volumeInfo.imageLinks.thumbnail}"/>'><br>
+<span> <c:out value="${books.volumeInfo.title}"/> </span><br>
+<span> <c:out value="${books.volumeInfo.authors}"/> </span><br>
+<c:forEach items="${requestScope.books.volumeInfo.industryIdentifiers}" var="ident">
+	<c:if test="${ident.type== 'ISBN_13' }">
+		<span><c:out value="${ident.identifier}"/></span>
+	</c:if>
+	
+</c:forEach>
+<br>
+
+<span>Rating: <c:out value="${books.volumeInfo.averageRating}"/> </span><br>
+<span>Precio: <c:out value="${books.saleInfo.listPrice.amount}"/> &nbsp <c:out value="${books.saleInfo.listPrice.currencyCode}"/> </span>
 </fieldset>
 
 

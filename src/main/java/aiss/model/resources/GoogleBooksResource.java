@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.restlet.resource.ClientResource;
 
 import aiss.model.googlebooks.BookSearch;
+import aiss.model.googlebooks.Item;
 
 
 
@@ -29,11 +30,11 @@ public class GoogleBooksResource {
 		//Regresar objeto
 	    return m;
 	}
-	public BookSearch getBook(String volumeID) throws UnsupportedEncodingException{
+	public Item getBook(String volumeID) throws UnsupportedEncodingException{
 		
 		String uri="https://www.googleapis.com/books/v1/volumes/"+volumeID+"?key="+GOOGLE_API;
 		ClientResource cr= new ClientResource(uri);
-		BookSearch m= cr.get(BookSearch.class);
+		Item m= cr.get(Item.class);
 		return m;
 	}
 	

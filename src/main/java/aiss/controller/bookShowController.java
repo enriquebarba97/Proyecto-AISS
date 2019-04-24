@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import aiss.model.googlebooks.BookSearch;
+import aiss.model.googlebooks.Item;
 import aiss.model.resources.GoogleBooksResource;
 
 public class bookShowController extends HttpServlet  {
@@ -35,13 +35,13 @@ public class bookShowController extends HttpServlet  {
 		
 		
 		GoogleBooksResource google= new GoogleBooksResource();
-		BookSearch books= google.getBook(query);
+		Item books= google.getBook(query);
 
 		
 
 		if ( books!=null ){
 			rd = request.getRequestDispatcher("/coment.jsp");
-			request.setAttribute("books", books.getItems());
+			request.setAttribute("books", books);
 			
 		} else {
 			rd = request.getRequestDispatcher("/error.jsp");
