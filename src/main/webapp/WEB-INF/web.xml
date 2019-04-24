@@ -14,13 +14,23 @@
 	
 	<servlet>
     <description></description>
-    <display-name>bookSearchController</display-name>
+    <display-name>BookSearchController</display-name>
     <servlet-name>bookSearchController</servlet-name>
     <servlet-class>aiss.controller.bookSearchController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>bookSearchController</servlet-name>
     <url-pattern>/bookSearchController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BookShowhController</display-name>
+    <servlet-name>bookShowhController</servlet-name>
+    <servlet-class>aiss.controller.bookShowhController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bookShowController</servlet-name>
+    <url-pattern>/bookShowController</url-pattern>
   </servlet-mapping>
   
   

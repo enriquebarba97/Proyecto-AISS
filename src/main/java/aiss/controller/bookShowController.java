@@ -2,21 +2,16 @@ package aiss.controller;
 
 import java.io.IOException;
 
-
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import aiss.model.googlebooks.BookSearch;
-
 import aiss.model.resources.GoogleBooksResource;
 
-
-public class bookSearchController extends HttpServlet  {
+public class bookShowController extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
     
 	
@@ -24,7 +19,7 @@ public class bookSearchController extends HttpServlet  {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public bookSearchController() {
+    public bookShowController() {
         super();
     }
     
@@ -34,18 +29,18 @@ public class bookSearchController extends HttpServlet  {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
-		String query = request.getParameter("searchQuery");
+		String query = request.getParameter("volumeID");
 		RequestDispatcher rd = null;
 		
 		
 		
 		GoogleBooksResource google= new GoogleBooksResource();
-		BookSearch books= google.getBooks(query);
+		BookSearch books= google.getBook(query);
 
 		
 
 		if ( books!=null ){
-			rd = request.getRequestDispatcher("/catalogos.jsp");
+			rd = request.getRequestDispatcher("/coment.jsp");
 			request.setAttribute("books", books.getItems());
 			
 		} else {
@@ -60,3 +55,4 @@ public class bookSearchController extends HttpServlet  {
 	
 
 }
+
