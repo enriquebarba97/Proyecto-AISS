@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/general.css">
-<title>Insert title here</title>
+<title>Coment</title>
 </head>
 <body>
-<fieldset >
 
 
-<img  alt="img" src='<c:out value="${books.volumeInfo.imageLinks.thumbnail}"/>'><br>
+<aside class="lista2">
+
+<img id="cover" alt="img" src='<c:out value="${books.volumeInfo.imageLinks.thumbnail}"/>'><br>
+
 <span> <c:out value="${books.volumeInfo.title}"/> </span><br>
 <span> <c:out value="${books.volumeInfo.authors}"/> </span><br>
 <c:forEach items="${requestScope.books.volumeInfo.industryIdentifiers}" var="ident">
@@ -25,9 +27,17 @@
 
 <span>Rating: <c:out value="${books.volumeInfo.averageRating}"/> </span><br>
 <span>Precio: <c:out value="${books.saleInfo.listPrice.amount}"/> &nbsp <c:out value="${books.saleInfo.listPrice.currencyCode}"/> </span>
-</fieldset>
 
-<fieldset>
+</aside>
+
+<fieldset class="lista">
+<legend> Review en IdreamBooks</legend>
+<c:forEach items="${requestScope.reviews.book.criticReviews}" var="review">
+<span><c:out value="${review.snippet}"/> </span>
+</c:forEach>
+</fieldset>
+<fieldset class="lista">
+	<legend> Reddit links</legend>
 	<ul>
 		<c:forEach items="${requestScope.posts}" var="post">
 			<li><a href='http://www.reddit.com<c:out value="${post.permalink}"/>'><c:out value="${post.title}"/></a></li>
