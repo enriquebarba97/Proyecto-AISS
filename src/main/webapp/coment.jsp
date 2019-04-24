@@ -27,6 +27,13 @@
 <span>Precio: <c:out value="${books.saleInfo.listPrice.amount}"/> &nbsp <c:out value="${books.saleInfo.listPrice.currencyCode}"/> </span>
 </fieldset>
 
+<fieldset>
+	<ul>
+		<c:forEach items="${requestScope.posts}" var="post">
+			<li><a href='http://www.reddit.com<c:out value="${post.permalink}"/>'><c:out value="${post.title}"/></a></li>
+		</c:forEach>
+	</ul>
+</fieldset>
 
 </body>
 </html>

@@ -8,8 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import aiss.model.googlebooks.IndustryIdentifier;
 import aiss.model.googlebooks.Item;
+import aiss.model.idreambooks.BookReviews;
+import aiss.model.reddit.Post;
+import aiss.model.reddit.RedditModel;
 import aiss.model.resources.GoogleBooksResource;
+import aiss.model.resources.IDreamBooksResource;
+import aiss.model.resources.RedditResource;
 
 public class bookShowController extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
@@ -40,9 +46,28 @@ public class bookShowController extends HttpServlet  {
 		
 
 		if ( books!=null ){
-			rd = request.getRequestDispatcher("/coment.jsp");
-			request.setAttribute("books", books);
+			String title = books.getVolumeInfo().getTitle();
+			String isbn = null;
+			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {
+				if(id.getType().equals("ISBN_13")) {
+					isbn = id.getIdentifier();
+					break;
+				}
+			}
+			// Reviews del libro
+			IDreamBooksResource iDreamBooks = new IDreamBooksResource();
+			BookReviews reviews = iDreamBooks.getReviews(isbn);
 			
+			// Posts en Reddit
+			RedditResource reddit = new RedditResource();
+			RedditModel<Post> posts = reddit.getPosts(title);
+			
+			if(reviews != null && reddit != null) {
+				rd = request.getRequestDispatcher("/coment.jsp");
+				request.setAttribute("books", books);
+				request.setAttribute("reviews", reviews);
+				request.setAttribute("posts", posts.getData().getChildren());
+			}
 		} else {
 			rd = request.getRequestDispatcher("/error.jsp");
 		}
