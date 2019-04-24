@@ -11,7 +11,7 @@
 <fieldset >
 <legend >Búsqueda de : <c:out value="${param.searchQuery}"/></legend>
 <c:forEach items="${requestScope.books}" var="books">
-<img alt="" src="<c:out value="${books.volumeInfo.imageLinks.thumbnails}"/>">
+<img alt="img" src='<c:out value="${books.volumeInfo.imageLinks.thumbnail}"/>'>
    
 </c:forEach>
 

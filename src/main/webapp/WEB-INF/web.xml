@@ -24,9 +24,9 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>BookShowhController</display-name>
-    <servlet-name>bookShowhController</servlet-name>
-    <servlet-class>aiss.controller.bookShowhController</servlet-class>
+    <display-name>BookShowController</display-name>
+    <servlet-name>bookShowController</servlet-name>
+    <servlet-class>aiss.controller.bookShowController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>bookShowController</servlet-name>
