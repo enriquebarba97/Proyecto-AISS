@@ -16,7 +16,7 @@ import aiss.model.idreambooks.BookReviews;
 public class IDreamBooksResource {
 	private static final String API_KEY = "ae3e258c1c1207bf552763947a9d1e633fd42994";
 	private static final String base_uri = "http://idreambooks.com/api/";
-	private static final String reviews_uri = base_uri + "books/reviews.json?q=%q&key="+API_KEY;
+	private static final String reviews_uri = base_uri + "books/reviews.json?q=%q&country=ES&key="+API_KEY;
 	private static final String acclaimed_uri = base_uri + "publications/recent_recos.json?&slug=%genre&key="+API_KEY;
 	
 	private static final Logger log = Logger.getLogger(IDreamBooksResource.class.getName());
@@ -25,6 +25,7 @@ public class IDreamBooksResource {
 		BookReviews result = null;
 		String uri = "";
 		ClientResource cr = null;
+		
 		try {
 			String query = URLEncoder.encode(q, "UTF-8");
 			uri = reviews_uri.replace("%q", query);
@@ -36,12 +37,13 @@ public class IDreamBooksResource {
 		}
 		
 		try {
-			cr = new ClientResource(uri);
-			result = cr.get(BookReviews.class);
+			 cr = new ClientResource(uri);
+			 result = cr.get(BookReviews.class);
 			log.log(Level.FINE, "Reviews for the query " + q + "successfully retrieved");
 		}catch (ResourceException e) {
 			log.warning("Error retrieving the resource: " + cr.getResponse().getStatus());
 		}
+		
 		
 		return result;
 	}

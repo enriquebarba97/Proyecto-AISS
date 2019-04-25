@@ -47,7 +47,7 @@ public class bookShowController extends HttpServlet  {
 
 		if ( books!=null ){
 			String title = books.getVolumeInfo().getTitle();
-			String isbn = null;
+			String isbn="";
 			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {
 				if(id.getType().equals("ISBN_13")) {
 					isbn = id.getIdentifier();
@@ -61,10 +61,12 @@ public class bookShowController extends HttpServlet  {
 			// Posts en Reddit
 			RedditResource reddit = new RedditResource();
 			RedditModel<Post> posts = reddit.getPosts(title);
+			rd = request.getRequestDispatcher("/coment.jsp");
+			request.setAttribute("books", books);
 			
-			if(reviews != null && reddit != null) {
-				rd = request.getRequestDispatcher("/coment.jsp");
-				request.setAttribute("books", books);
+			
+			if(reviews != null && reddit != null ) {
+				
 				request.setAttribute("reviews", reviews);
 				request.setAttribute("posts", posts.getData().getChildren());
 			}
