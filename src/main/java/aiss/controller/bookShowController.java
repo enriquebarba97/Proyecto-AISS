@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import aiss.model.aliexpress.ProductSearch;
 import aiss.model.googlebooks.IndustryIdentifier;
 import aiss.model.googlebooks.Item;
 import aiss.model.idreambooks.BookReviews;
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
+import aiss.model.resources.AliExpressResource;
 import aiss.model.resources.GoogleBooksResource;
 import aiss.model.resources.IDreamBooksResource;
 import aiss.model.resources.RedditResource;
@@ -61,14 +63,18 @@ public class bookShowController extends HttpServlet  {
 			// Posts en Reddit
 			RedditResource reddit = new RedditResource();
 			RedditModel<Post> posts = reddit.getPosts(title);
+			// Merch de AliExpress
+			AliExpressResource ali= new AliExpressResource();
+			ProductSearch productos= ali.getProducts(title);
 			rd = request.getRequestDispatcher("/coment.jsp");
 			request.setAttribute("books", books);
 			
 			
-			if(reviews != null && reddit != null ) {
+			if(reviews != null && reddit != null && productos !=null) {
 				
 				request.setAttribute("reviews", reviews);
 				request.setAttribute("posts", posts.getData().getChildren());
+				request.setAttribute("productos", productos.getItems());
 			}
 		} else {
 			rd = request.getRequestDispatcher("/error.jsp");

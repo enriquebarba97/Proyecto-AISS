@@ -43,6 +43,22 @@
 			<li><a href='http://www.reddit.com<c:out value="${post.permalink}"/>'><c:out value="${post.title}"/></a></li>
 		</c:forEach>
 	</ul>
+</fieldset >
+<fieldset class="lista">
+<legend> Merchandaising</legend>
+
+<c:forEach items="${requestScope.productos}" var="prod">
+<aside class="lista">
+<img id="cover" alt="merch" src='<c:out value="${prod.imageUrl}"></c:out>'/>
+<span> <c:out value="${prod.title}"></c:out> </span>
+<c:forEach items="${prod.priceOptions}" var="precio">
+<span><c:out value="${precio.amount.value}"></c:out>  </span>
+<span><c:out value="${precio.amount.currency}"></c:out>   </span>
+</c:forEach>
+
+</aside>
+</c:forEach>
+
 </fieldset>
 
 </body>
