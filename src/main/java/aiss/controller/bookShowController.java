@@ -68,13 +68,13 @@ public class bookShowController extends HttpServlet  {
 			ProductSearch productos= ali.getProducts(title);
 			rd = request.getRequestDispatcher("/coment.jsp");
 			request.setAttribute("books", books);
+			request.setAttribute("productos", productos.getItems());
 			
-			
-			if(reviews != null && reddit != null && productos !=null) {
+			if(reviews != null && reddit != null ) {
 				
 				request.setAttribute("reviews", reviews);
 				request.setAttribute("posts", posts.getData().getChildren());
-				request.setAttribute("productos", productos.getItems());
+				
 			}
 		} else {
 			rd = request.getRequestDispatcher("/error.jsp");
