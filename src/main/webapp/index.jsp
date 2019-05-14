@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html> 
 <html>
   <head>
@@ -17,9 +19,24 @@
 			<input class="enviar" type="submit" name="searchBtn" title="search" value="buscar" >
 		</form>
 	</div>
-	<div >
-	<a href="https://ssl.reddit.com/login"> Regístrate en Reddit</a>
-	</div>
+	<c:choose>
+		<c:when test='${sessionScope["Reddit-user"] != null}'>
+		<div>
+    		Bienvenido <c:out value='${sessionScope["Reddit-user"]}'/> 
+    	</div>
+    	<div>
+    		<a href="/redditLogOut">Cerrar sesión</a>
+    	</div>
+		</c:when>
+		<c:otherwise>
+			<div >
+				<a href="https://ssl.reddit.com/login"> Regístrate en Reddit</a>
+			</div>
+			<div>
+				<a href="/RedditAuthController"> Entra en Reddit</a>
+			</div>
+		</c:otherwise>
+	</c:choose>
     
   </body>
 </html>

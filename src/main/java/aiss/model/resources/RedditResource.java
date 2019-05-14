@@ -4,15 +4,30 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.*;
 
+import org.restlet.data.ChallengeResponse;
+import org.restlet.data.ChallengeScheme;
+import org.restlet.data.MediaType;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
+import aiss.model.reddit.RedditUser;
 
 public class RedditResource {
+	private static final String uriOauth = "https://oauth.reddit.com/api/v1/";
+	private static final String uriUser = uriOauth + "me";
 	private static final String uriBooks = "https://www.reddit.com/r/books/search.json";
 	private static final Logger log = Logger.getLogger(RedditResource.class.getName());
+	private String accessToken;
+	
+	public RedditResource() {
+		super();
+	}
+	
+	public RedditResource(String accessToken) {
+		this.accessToken = accessToken;
+	}
 	
 	public RedditModel<Post> getPosts(String q) {
 		String uri = "";
@@ -36,6 +51,22 @@ public class RedditResource {
 			log.warning("Error retrieving posts from Reddit: " + cr.getResponse().getStatus());
 		}
 		
+		return result;
+	}
+	
+	public String getCurrentUser() {
+		ClientResource cr = new ClientResource(uriUser);
+		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
+		chr.setRawValue(accessToken);
+		cr.setChallengeResponse(chr);
+		
+		String result = null;
+		try {
+			RedditUser user = cr.get(RedditUser.class);
+			result = user.getName();
+		}catch(ResourceException e) {
+			log.warning("ERROR: " + e.getMessage());
+		}
 		return result;
 	}
 }

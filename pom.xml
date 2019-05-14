@@ -141,6 +141,13 @@
 		    <artifactId>apache-jsp</artifactId>
 		    <version>9.4.15.v20190215</version>
 		</dependency>
+		
+		<!-- org.json library -->
+		<dependency>
+   			<groupId>org.json</groupId>
+  			<artifactId>org.json</artifactId>
+   			<version>chargebee-1.0</version>
+		</dependency>
 
 	</dependencies>
 
