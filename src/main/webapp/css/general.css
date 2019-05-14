@@ -3,6 +3,7 @@
 	width: 20%;
 	display:block;
 	margin:auto;
+	margin-right: 420px;
 	border-radius: 20px;
 }
 .busqueda {
@@ -16,8 +17,9 @@
 	border: solid 2px gray;
 	font-size: 20px;
 	text-align: center;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.9);
 }
+
 .separador{
 	margin-top:50px;
 }
@@ -52,6 +54,8 @@ a{
 	border: solid 3px #FFC471;
 	padding: 2%;
 	min-width: 30%;
+	background-color: rgba(255, 255, 255, 0.3);
+	
 }
 legend {
 	font-weight: bold;
@@ -71,4 +75,29 @@ legend {
 #cover{
 	width: 180px;
 	height: 210px;
+}
+#video_background { 
+	position: absolute; 
+	bottom: 0px; 
+	right: 0px; 
+	min-width: 100%; 
+	min-height: 100%; 
+	width: auto; 
+	height: auto; 
+	z-index: -1000; 
+	overflow: hidden; 
+}
+#video_pattern { 
+	background:#fff; 
+	position: fixed; 
+	opacity: 0.8; 
+	left: 0px; 
+	top: 0px; 
+	width: 100%; 
+	height: 100%; 
+	z-index: 1; 
+}
+.loguea{
+	float: right;
+	font-family: "Palatino", sans-serif;
 }

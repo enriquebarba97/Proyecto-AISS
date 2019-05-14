@@ -10,6 +10,26 @@
 </head>
 <body>
  <div class="separador">
+ <div class="loguea">
+	<c:choose>
+		<c:when test='${sessionScope["Reddit-user"] != null}'>
+		<div>
+    		Bienvenido <c:out value='${sessionScope["Reddit-user"]}'/> 
+    	</div>
+    	<div>
+    		<a href="/redditLogOut">Cerrar sesión</a>
+    	</div>
+		</c:when>
+		<c:otherwise>
+			<div >
+				<a href="https://ssl.reddit.com/login"> Regístrate en Reddit</a>
+			</div>
+			<div >
+				<a href="/RedditAuthController"> Entra en Reddit</a>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	</div>
     <img class="logo" alt="logo" src="img/prueba.png">
     </div >
     <div class="separador">
@@ -20,13 +40,20 @@
 		</form>
 	</div>
 	<div class="separador2"></div>
+
 <fieldset class="lista">
-<legend >Catálogo de libros disponibles para su búsqueda: <c:out value="${param.searchQuery}"/></legend>
+<legend style="color:white;">Catálogo de libros disponibles para su búsqueda: <c:out value="${param.searchQuery}"/></legend>
 <c:forEach items="${requestScope.books}" var="books">
   <a href="/bookShowController?volumeID=${books.id}"> <c:out value="${books.volumeInfo.title}"/></a>  <br>
 </c:forEach>
 
 </fieldset>
+
+<div>
+	<video autoplay="autoplay" loop="loop"  id="video_background" preload="auto" muted="muted"/>
+  		<source src="img/The Joy of Books.mp4" type="video/mp4" />
+	</video/>
+	</div>
 
 
 </body>

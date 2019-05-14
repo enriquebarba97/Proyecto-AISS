@@ -10,15 +10,7 @@
 
   <body>
     <div class="separador">
-    <img class="logo" alt="logo" src="img/prueba.png">
-    </div >
-    <div class="separador">
-		<form  action="/bookSearchController" method="post">
-			<input class="busqueda" type="text" name="searchQuery" placeholder="Busque por titulo, autor" required/> 
-			<div class="separador2"></div>
-			<input class="enviar" type="submit" name="searchBtn" title="search" value="buscar" >
-		</form>
-	</div>
+    <div class="loguea">
 	<c:choose>
 		<c:when test='${sessionScope["Reddit-user"] != null}'>
 		<div>
@@ -32,11 +24,28 @@
 			<div >
 				<a href="https://ssl.reddit.com/login"> Regístrate en Reddit</a>
 			</div>
-			<div>
+			<div >
 				<a href="/RedditAuthController"> Entra en Reddit</a>
 			</div>
 		</c:otherwise>
 	</c:choose>
+	</div>
+    <img class="logo" alt="logo" src="img/prueba.png">
+    
+    </div >
+    <div class="separador">
+		<form  action="/bookSearchController" method="post">
+			<input class="busqueda" type="text" name="searchQuery" placeholder="Busque por titulo, autor" required/> 
+			<div class="separador2"></div>
+			<input class="enviar" type="submit" name="searchBtn" title="search" value="buscar" >
+		</form>
+	</div>
+	
+	<div>
+	<video autoplay="autoplay" loop="loop"  id="video_background" preload="auto" muted="muted"/>
+  		<source src="img/The Joy of Books.mp4" type="video/mp4" />
+	</video/>
+	</div>
     
   </body>
 </html>
