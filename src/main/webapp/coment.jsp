@@ -43,7 +43,9 @@
 			<li><a href='http://www.reddit.com<c:out value="${post.permalink}"/>'><c:out value="${post.title}"/></a></li>
 		</c:forEach>
 	</ul>
-</fieldset >
+	<br>
+	<a href="/post.jsp">Postear en r/books</a>
+</fieldset>
 <fieldset class="lista">
 <legend> Merchandaising</legend>
 

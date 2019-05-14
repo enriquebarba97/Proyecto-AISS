@@ -56,7 +56,7 @@ public class RedditOAuth {
     public static final String MY_APP_SECRET = "J5u4MlUdzb15OLiSpoGxwsrjnE8";
 
     public static final String SCOPE_ID = "identity";
-
+    public static final String SCOPE_SUBMIT = "submit";
     // Field name in responses
     public static final String ACCESS_TOKEN_NAME = "access_token";
     public static final String REFRESH_TOKEN_NAME = "refresh_token";
@@ -66,7 +66,8 @@ public class RedditOAuth {
     public static String getUserAuthUrl(String state) {
         String duration = permanentAccess ? "permanent" : "temporary";
         String url = OAUTH_AUTH_URL + "?client_id=" + MY_APP_ID + "&response_type=code&state=" + state
-                + "&redirect_uri=" + REDIRECT_URI + "&duration=" + duration + "&scope=" + SCOPE_ID;
+                + "&redirect_uri=" + REDIRECT_URI + "&duration=" + duration + "&scope=" + SCOPE_ID + "+"
+        		+ SCOPE_SUBMIT;
 
         // scopes: modposts, identity, edit, flair, history, modconfig, modflair, modlog, modposts, modwiki,
         // mysubreddits, privatemessages, read, report, save, submit, subscribe, vote, wikiedit, wikiread, etc.

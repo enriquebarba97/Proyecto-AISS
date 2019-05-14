@@ -6,18 +6,20 @@ import java.util.logging.*;
 
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.data.MediaType;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
+import aiss.model.reddit.NewPost;
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
 import aiss.model.reddit.RedditUser;
 
 public class RedditResource {
-	private static final String uriOauth = "https://oauth.reddit.com/api/v1/";
-	private static final String uriUser = uriOauth + "me";
+	private static final String uriOauth = "https://oauth.reddit.com/api/";
+	private static final String uriUser = uriOauth + "v1/me";
+	private static final String uriPost = uriOauth + "submit";
 	private static final String uriBooks = "https://www.reddit.com/r/books/search.json";
+	private static final String agent = "webapp:book-assistant-aiss:v1.1";
 	private static final Logger log = Logger.getLogger(RedditResource.class.getName());
 	private String accessToken;
 	
@@ -68,5 +70,44 @@ public class RedditResource {
 			log.warning("ERROR: " + e.getMessage());
 		}
 		return result;
+	}
+	
+	public void postOnBooks(NewPost post) {
+		ClientResource cr  = new ClientResource(uriPost);
+		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
+		chr.setRawValue(accessToken);
+		cr.setChallengeResponse(chr);
+		cr.getClientInfo().setAgent(agent);
+		
+		log.info("Posting to Reddit: " + uriPost);
+		log.info("Title" + post.getTitle());
+		try {
+			cr.post(post);
+			log.info(cr.getResponse().getEntityAsText());
+		}catch (ResourceException e) {
+			log.warning("ERROR: " + e.getMessage());
+			log.warning(e.getResponse().getEntityAsText());
+		}
+		
+	}
+		
+	public void postOnBooks(String title, String text, Boolean spoiler) {
+						
+		String uri = uriPost + "?api_type=json&kind=self&spoiler="+spoiler+"&sr=test&title="+title+
+					"&text="+text;
+		ClientResource cr  = new ClientResource(uri);
+		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
+		chr.setRawValue(accessToken);
+		cr.setChallengeResponse(chr);
+		cr.getClientInfo().setAgent(agent);
+		
+		log.info("Posting to Reddit: " + uri);
+		try {
+			cr.post("");
+			log.info(cr.getResponse().getEntityAsText());
+		}catch (ResourceException e) {
+			log.warning("ERROR: " + e.getMessage());
+			log.warning(e.getResponse().getEntityAsText());
+		}
 	}
 }

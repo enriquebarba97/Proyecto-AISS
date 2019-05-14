@@ -68,4 +68,14 @@
     <servlet-name>RedditLogOut</servlet-name>
     <url-pattern>/redditLogOut</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RedditSendPost</display-name>
+    <servlet-name>RedditSendPost</servlet-name>
+    <servlet-class>aiss.controller.RedditSendPost</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedditSendPost</servlet-name>
+    <url-pattern>/redditSendPost</url-pattern>
+  </servlet-mapping>
 </web-app>
