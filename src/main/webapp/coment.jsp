@@ -23,21 +23,25 @@
 	</c:if>
 	
 </c:forEach>
+
 <br>
 
 <span>Rating: <c:out value="${books.volumeInfo.averageRating}"/> </span><br>
 <span>Precio: <c:out value="${books.saleInfo.listPrice.amount}"/> &nbsp <c:out value="${books.saleInfo.listPrice.currencyCode}"/> </span>
+<br>
+<a href="/MerchController?title=${requestScope.title}">Ver productos relacionados</a>
 
 </aside>
-
+<div class="separador">
 <fieldset class="lista">
-<legend> Review en IdreamBooks</legend>
+<legend  style="color:#FACC70;"> Review en IdreamBooks</legend>
 <c:forEach items="${requestScope.reviews.book.criticReviews}" var="review">
 <span><c:out value="${review.snippet}"/> </span>
 </c:forEach>
 </fieldset>
+<div class="separador">
 <fieldset class="lista">
-	<legend> Reddit links</legend>
+	<legend > Reddit links</legend>
 	<ul>
 		<c:forEach items="${requestScope.posts}" var="post">
 			<li><a href='http://www.reddit.com<c:out value="${post.permalink}"/>'><c:out value="${post.title}"/></a></li>
@@ -46,22 +50,7 @@
 	<br>
 	<a href="/post.jsp">Postear en r/books</a>
 </fieldset>
-<fieldset class="lista">
-<legend> Merchandaising</legend>
 
-<c:forEach items="${requestScope.productos}" var="prod">
-<aside class="lista">
-<img id="cover" alt="merch" src='<c:out value="${prod.imageUrl}"></c:out>'/>
-<span> <c:out value="${prod.title}"></c:out> </span>
-<c:forEach items="${prod.priceOptions}" var="precio">
-<span><c:out value="${precio.amount.value}"></c:out>  </span>
-<span><c:out value="${precio.amount.currency}"></c:out>   </span>
-</c:forEach>
-
-</aside>
-</c:forEach>
-
-</fieldset>
 
 </body>
 </html>

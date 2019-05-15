@@ -1,3 +1,6 @@
+body{
+background-image: url("/img/libro.jpg");
+}
 .logo{
     
 	width: 20%;
@@ -54,7 +57,7 @@ a{
 	border: solid 3px #FFC471;
 	padding: 2%;
 	min-width: 30%;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.4);
 	
 }
 legend {
@@ -66,10 +69,23 @@ legend {
 	margin-top:7px;
 	margin-right:10px;
 	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.4);
 	border: solid 3px #FFC471;
 	padding: 1%;
 	float: left; 
 	width: 15%; 
+	
+}
+.lista3{
+	margin-top:7px;
+	margin-right:10px;
+	
+	background-color: rgba(255, 255, 255, 0.4);
+	border: solid 3px #FFC471;
+	width: 300px;
+	height: 370px;
+	float: left; 
+	 
 	
 }
 #cover{
@@ -101,3 +117,14 @@ legend {
 	float: right;
 	font-family: "Palatino", sans-serif;
 }
+.formu{
+	
+  
+  padding: 40px;
+  max-width:700px;
+  margin:40px auto;
+  border-radius:$br;
+  box-shadow:0 4px 10px 4px rgba(#13232f,.3);
+
+}
+.estilotextarea {width:600px;height:500px;border: 2px solid #FFC471;}

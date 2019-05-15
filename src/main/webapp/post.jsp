@@ -8,11 +8,18 @@
 <title>Nuevo post</title>
 </head>
 <body>
-<form action="/redditSendPost" method="post">
-<input type="text" name="title">
-<textarea name="text"></textarea>
+
+<form class="formu" action="/redditSendPost" method="post">
+<fieldset class="lista">
+<input type="text" name="title" placeholder="Título de tu Post"><br>
+<br>
+<textarea class="estilotextarea" name="text" placeholder="Escribe aquí tu post"></textarea><br>
+<br>
 <input type="checkbox" name="spoiler">Marcar como spoiler
 <input class="enviar" type="submit" name="searchBtn" title="send" value="enviar">
+</fieldset>
 </form>
+
+
 </body>
 </html>

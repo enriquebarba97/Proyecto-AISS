@@ -78,4 +78,14 @@
     <servlet-name>RedditSendPost</servlet-name>
     <url-pattern>/redditSendPost</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MerchController</display-name>
+    <servlet-name>MerchController</servlet-name>
+    <servlet-class>aiss.controller.MerchController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MerchController</servlet-name>
+    <url-pattern>/MerchController</url-pattern>
+  </servlet-mapping>
 </web-app>
