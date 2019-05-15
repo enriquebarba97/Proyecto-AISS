@@ -19,6 +19,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.UrlEncodedContent;
+import com.google.appengine.api.utils.SystemProperty;
 
 // Reddit's OAUTH docs are here:
 // https://github.com/reddit/reddit/wiki/OAuth2
@@ -37,8 +38,10 @@ import com.google.api.client.http.UrlEncodedContent;
 public class RedditOAuth {
 
 	private static final Logger log = Logger.getLogger(RedditOAuth.class.getName());
-    // This line is GAE specific!  for detecting when running on local admin
-
+    
+	// This line is GAE specific!  for detecting when running on local admin
+	public static final boolean production = (SystemProperty.Environment.Value.Production == SystemProperty.environment.value());
+	
     public static final String OAUTH_API_DOMAIN = "https://oauth.reddit.com";
 
     // Step 1. Send user to auth URL
@@ -46,14 +49,15 @@ public class RedditOAuth {
     // https://ssl.reddit.com/api/v1/authorize?client_id=CLIENT_ID&response_type=TYPE&state=RANDOM_STRING&redirect_uri=URI&duration=DURATION&scope=SCOPE_STRING
 
     // Step 2. Reddit sends user to REDIRECT_URI
-    private static final String REDIRECT_URI = "http://localhost:8090/oauth2callback/Reddit";
+    private static final String REDIRECT_URI = production ? "https://book-assistant-aiss.appspot.com/oauth2callback/Reddit"
+    		: "http://localhost:8090/oauth2callback/Reddit";
 
     // Step 3. Get token
     public static final String OAUTH_TOKEN_URL = "https://ssl.reddit.com/api/v1/access_token";
 
     // I think it is easier to create 2 reddit apps (one with 127.0.0.1 redirect URI)
-    public static final String MY_APP_ID = "wvw_SRbJFupemw";
-    public static final String MY_APP_SECRET = "J5u4MlUdzb15OLiSpoGxwsrjnE8";
+    public static final String MY_APP_ID = production ? "U0ThpSEVdtzKaw" : "wvw_SRbJFupemw";
+    public static final String MY_APP_SECRET = production ? "JXZHQZxSOcr9GZKbVyHzrqAAv44" : "J5u4MlUdzb15OLiSpoGxwsrjnE8";
 
     public static final String SCOPE_ID = "identity";
     public static final String SCOPE_SUBMIT = "submit";
