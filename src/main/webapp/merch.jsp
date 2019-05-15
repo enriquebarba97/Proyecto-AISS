@@ -6,7 +6,7 @@
 <head>
 <meta charset="charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/general.css">
-<title>Merchandaising</title>
+<title>Merchandising</title>
 </head>
 <body>
 

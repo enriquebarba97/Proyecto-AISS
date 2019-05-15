@@ -35,10 +35,13 @@
 <div class="separador">
 <fieldset class="lista">
 <legend  style="color:#FACC70;"> Review en IdreamBooks</legend>
+<ul>
 <c:forEach items="${requestScope.reviews.book.criticReviews}" var="review">
-<span><c:out value="${review.snippet}"/> </span>
+	<li><c:out value="${review.snippet}"/> (<c:out value="${review.source}"/>) </li>
 </c:forEach>
+</ul>
 </fieldset>
+</div>
 <div class="separador">
 <fieldset class="lista">
 	<legend > Reddit links</legend>
@@ -48,8 +51,12 @@
 		</c:forEach>
 	</ul>
 	<br>
-	<a href="/post.jsp">Postear en r/books</a>
+	<form action="/redditNewPost" method="post">
+	<input type="hidden" name="title" value='<c:out value="${books.volumeInfo.title}"/>'>
+	<button type="submit">Postear en r/books</button>
+	</form>
 </fieldset>
+</div>
 
 
 </body>

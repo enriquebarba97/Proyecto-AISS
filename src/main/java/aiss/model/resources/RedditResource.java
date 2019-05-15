@@ -91,8 +91,9 @@ public class RedditResource {
 		
 	}
 		
-	public void postOnBooks(String title, String text, Boolean spoiler) {
-						
+	public void postOnBooks(String title, String text, Boolean spoiler) throws UnsupportedEncodingException {
+		title = URLEncoder.encode(title, "UTF-8");	
+		text = URLEncoder.encode(text, "UTF-8");
 		String uri = uriPost + "?api_type=json&kind=self&spoiler="+spoiler+"&sr=test&title="+title+
 					"&text="+text;
 		ClientResource cr  = new ClientResource(uri);

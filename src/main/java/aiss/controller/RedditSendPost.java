@@ -40,6 +40,7 @@ public class RedditSendPost extends HttpServlet {
 		if(request.getParameter("spoiler")!=null) {
 			spoiler = true;
 		}
+		log.info("Texto del post: " + text);
 		
 		String accessToken = (String) request.getSession().getAttribute("Reddit-token");
 		if(accessToken != null && !"".equals(accessToken)) {

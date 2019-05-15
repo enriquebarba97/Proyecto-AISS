@@ -13,7 +13,7 @@ import aiss.model.googlebooks.Item;
 
 
 public class GoogleBooksResource {
-	private static final String GOOGLE_API="AIzaSyD2ZTG4c7WhtH7QIGg3nubyA_5d1opjqQw";  // TODO: Change this API KEY for your personal Key
+	private static final String GOOGLE_API="AIzaSyD2ZTG4c7WhtH7QIGg3nubyA_5d1opjqQw";
 	private static final Logger log = Logger.getLogger(GoogleBooksResource.class.getName());
 	
 	public BookSearch getBooks(String query) throws UnsupportedEncodingException {
