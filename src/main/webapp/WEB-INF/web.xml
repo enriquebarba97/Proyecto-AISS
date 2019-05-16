@@ -3,6 +3,10 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+	<param-name>resteasy.servlet.mapping.prefix</param-name>
+	<param-value>/api</param-value>
+  </context-param>
   <servlet>
     <servlet-name>HelloWorld</servlet-name>
     <servlet-class>aiss.HelloWorldServlet</servlet-class>
@@ -97,5 +101,17 @@
   <servlet-mapping>
     <servlet-name>RedditNewPost</servlet-name>
     <url-pattern>/redditNewPost</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Resteasy</servlet-name>
+	<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+	<init-param>
+		<param-name>javax.ws.rs.Application</param-name>
+		<param-value>aiss.api.BookAssistantApplication</param-value>
+	</init-param>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Resteasy</servlet-name>
+	<url-pattern>/api/*</url-pattern>
   </servlet-mapping>
 </web-app>
