@@ -114,4 +114,35 @@
 	<servlet-name>Resteasy</servlet-name>
 	<url-pattern>/api/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <servlet-name>GoogleBooksAuthController</servlet-name>
+    <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+    <init-param>
+      <param-name>provider</param-name>
+      <param-value>GoogleBooks</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleBooksAuthController</servlet-name>
+    <url-pattern>/AuthController/GoogleBooks</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>GoogleBooksOAuth2Callback</servlet-name>
+    <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+    <init-param>
+      <param-name>provider</param-name>
+      <param-value>GoogleBooks</param-value>
+    </init-param>
+    <init-param>
+      <param-name>onSuccess</param-name>
+      <param-value>redirect:/index.jsp</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleBooksOAuth2Callback</servlet-name>
+    <url-pattern>/oauth2callback/GoogleBooks</url-pattern>
+  </servlet-mapping>
 </web-app>

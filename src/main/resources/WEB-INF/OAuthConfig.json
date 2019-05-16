@@ -1,23 +1,9 @@
 {	
-    "GoogleDrive": { 
+    "GoogleBooks": { 
         "tokenUrl": "https://www.googleapis.com/oauth2/v4/token",
-        "clientId": "700326513140-4mfpcg8ueplmqf6n6evo8gtln56ejl7t.apps.googleusercontent.com",
-        "clientSecret": "WLvT42PJ9FFiFG6TTnbX8hTU",
+        "clientId": "131912386747-kqrop4eq9gum4i0apo8n2prlh39fhjpa.apps.googleusercontent.com",
+        "clientSecret": "3XDF8R_oEdQZwtmJmfDFRQA6",
         "authorizationFormUrl": "https://accounts.google.com/o/oauth2/v2/auth",
-        "scopes": ["https://www.googleapis.com/auth/drive"]
-    },
-    "Spotify": {
-        "tokenUrl": "https://accounts.spotify.com/api/token",
-        "clientId": "7be91a4c418942fcad6e9d86bd825e3c",
-        "clientSecret": "7af9a6149d7a4f4392518c4f24124d80",
-        "authorizationFormUrl": "https://accounts.spotify.com/authorize",
-        "scopes": ["playlist-read-private","playlist-modify-private"]
-    },
-    "Reddit": {
-    	"tokenUrl": "https://www.reddit.com/api/v1/access_token",
-        "clientId": "wvw_SRbJFupemw",
-        "clientSecret": "J5u4MlUdzb15OLiSpoGxwsrjnE8",
-        "authorizationFormUrl": "https://www.reddit.com/api/v1/authorize?state=xyz",
-        "scopes": ["identity"]
+        "scopes": ["https://www.googleapis.com/auth/books"]
     }
 }		
