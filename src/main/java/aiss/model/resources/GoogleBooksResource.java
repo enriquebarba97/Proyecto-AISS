@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.resource.ClientResource;
+import org.restlet.resource.ResourceException;
 
 import aiss.model.googlebooks.BookSearch;
 import aiss.model.googlebooks.Item;
@@ -57,19 +58,22 @@ public class GoogleBooksResource {
 	///Recuperar Lista completa de libros
 	public List<Item> getListaEstanteria(Integer idEstanteria) {
 		List<Item> res= new ArrayList<>();
-		BookSearch actual= getListaEstanteria(idEstanteria, 0, 40);
-		if(actual.getItems()!=null) {
-			Integer i=0;
-			Integer j=40;
-			Integer max= actual.getTotalItems()/40;
-			res.addAll(actual.getItems());
-			while(i<max) {
-				actual=getListaEstanteria(idEstanteria, j, 40);
-				i++;
-				j+=40;
+		try {
+			BookSearch actual= getListaEstanteria(idEstanteria, 0, 40);
+			if(actual.getItems()!=null) {
+				Integer i=0;
+				Integer j=40;
+				Integer max= actual.getTotalItems()/40;
+				res.addAll(actual.getItems());
+				while(i<max) {
+					actual=getListaEstanteria(idEstanteria, j, 40);
+					i++;
+					j+=40;
+				}
 			}
+		} catch(NullPointerException e) {
+			log.warning("The shelf search returned null: " + e.getMessage());
 		}
-		
 		
 		
 		return res;
@@ -80,9 +84,16 @@ public class GoogleBooksResource {
 		String uri= URI_ESTANT+idEstanteria+"/volumes?startIndex="+startIndex+"&maxResults="+maxresult+"&key="+ GOOGLE_API ;		
 		ClientResource cr = new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
+		BookSearch m = null;
 		chr.setRawValue(token);
 		cr.setChallengeResponse(chr);
-		BookSearch m= cr.get(BookSearch.class);
+		
+		
+		try {
+			m= cr.get(BookSearch.class);
+		}catch (ResourceException e) {
+			log.warning("Error retrieving the resource: " + cr.getResponse().getStatus());
+		}
 		return m;
 		
 	}
@@ -93,7 +104,14 @@ public class GoogleBooksResource {
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);
 		cr.setChallengeResponse(chr);
-		cr.post("");
+		
+		log.info("Adding the book with ID: " + volumeId);
+		try {
+			cr.post("");
+			log.info("Response: "+ cr.getResponse().getStatus());
+		}catch (ResourceException e) {
+			log.warning("Error adding the resource: " + cr.getResponse().getStatus());
+		}
 		
 	}
 	public void removeBook(String volumeId, Integer idEstanteria) {
@@ -102,7 +120,14 @@ public class GoogleBooksResource {
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);
 		cr.setChallengeResponse(chr);
-		cr.post("");
+		log.info("Removing the book with ID: " + volumeId);
+		try {
+			cr.post("");
+			log.info("Response: "+ cr.getResponse().getStatus());
+		} catch (ResourceException e) {
+			log.warning("Error removing the resource: " + cr.getResponse().getStatus());
+		}
+		
 	}
 
 }

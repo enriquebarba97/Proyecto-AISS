@@ -2,6 +2,7 @@ package aiss.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,8 @@ import aiss.model.resources.RedditResource;
 
 public class bookShowController extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(bookShowController.class.getName());
+
     
 	
 	 
@@ -45,6 +48,7 @@ public class bookShowController extends HttpServlet  {
 			request.setAttribute("logged", true);
 			GoogleBooksResource rc= new GoogleBooksResource(token);
 			List<Item> lista= rc.getListaEstanteria(2);
+			log.info("Libros por leer: "+ lista);
 			boolean stat= false;
 			for(Item i : lista) {
 				stat=i.getId().equals(query);

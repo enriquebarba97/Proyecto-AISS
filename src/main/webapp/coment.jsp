@@ -32,7 +32,7 @@
 <a href="/MerchController?title=${requestScope.title}">Ver productos relacionados</a>
 <c:choose>
 <c:when test="${not empty requestScope.logged}">
-<form action="/bookShelfControlller">
+<form action="/bookShelfControlller" method="post">
 <input type="hidden" name="volumeId" value="${books.id}">
 	<c:choose>
 	

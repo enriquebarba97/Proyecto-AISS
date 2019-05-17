@@ -1,12 +1,12 @@
 package aiss.controller;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.jetty.util.log.Logger;
 
 import aiss.model.resources.GoogleBooksResource;
 
@@ -15,6 +15,8 @@ import aiss.model.resources.GoogleBooksResource;
  */
 public class BookShelfControlller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(BookShelfControlller.class.getName());
+
    
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,9 +29,7 @@ public class BookShelfControlller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String id= request.getParameter("volumeId");
 		String token= (String) request.getSession().getAttribute("GoogleBooks-token");
 		GoogleBooksResource rc= new GoogleBooksResource(token);
@@ -41,6 +41,9 @@ public class BookShelfControlller extends HttpServlet {
 				rc.removeBook(id, 2);
 			}
 		}
+		
+		request.getRequestDispatcher("/bookShowController").forward(request, response);
+		
 	}
 
 	/**
