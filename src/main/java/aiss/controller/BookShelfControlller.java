@@ -33,14 +33,14 @@ public class BookShelfControlller extends HttpServlet {
 		String id= request.getParameter("volumeId");
 		String token= (String) request.getSession().getAttribute("GoogleBooks-token");
 		GoogleBooksResource rc= new GoogleBooksResource(token);
-		String add= request.getParameter("add");
-		String remove= request.getParameter("remove");
-		if(add!=null && !"".equals(add)) {
-			rc.addBook(id, 2);
-		}else if(remove!=null && "".equals(remove)) {
-			rc.removeBook(id, 2);
+		String envio= request.getParameter("envio");
+		if(envio!=null && !"".equals(envio)) {
+			if(envio.equals("añadir")) {
+				rc.addBook(id, 2);
+			}else if(envio.equals("eliminar")) {
+				rc.removeBook(id, 2);
+			}
 		}
-		
 	}
 
 	/**

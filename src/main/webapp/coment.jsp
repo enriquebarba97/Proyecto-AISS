@@ -37,11 +37,11 @@
 	<c:choose>
 	
 		<c:when test="${empty requestScope.estado}">
-			<input type="submit" name="add" value="añadir">
+			<input type="submit" name="envio" value="añadir">
 
 		</c:when>
 		<c:otherwise>
-		<input type="submit" name="remove" value="eliminar">
+		<input type="submit" name="envio" value="eliminar">
 		</c:otherwise>
 	</c:choose>
 	
