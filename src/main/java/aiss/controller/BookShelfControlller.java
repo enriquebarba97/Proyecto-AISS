@@ -36,8 +36,10 @@ public class BookShelfControlller extends HttpServlet {
 		String envio= request.getParameter("envio");
 		if(envio!=null && !"".equals(envio)) {
 			if(envio.equals("añadir")) {
+				log.info("Adding the book with id: " + id);
 				rc.addBook(id, 2);
 			}else if(envio.equals("eliminar")) {
+				log.info("Removing the book with id: " + id);
 				rc.removeBook(id, 2);
 			}
 		}
