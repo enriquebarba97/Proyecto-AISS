@@ -1,6 +1,7 @@
 package aiss.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,13 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import aiss.model.googlebooks.IndustryIdentifier;
 import aiss.model.googlebooks.Item;
 import aiss.model.idreambooks.BookReviews;
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
-
 import aiss.model.resources.GoogleBooksResource;
 import aiss.model.resources.IDreamBooksResource;
 import aiss.model.resources.RedditResource;
@@ -38,9 +37,23 @@ public class bookShowController extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
 		String query = request.getParameter("volumeID");
+		
 		RequestDispatcher rd = null;
 		
-		
+		String token= (String) request.getSession().getAttribute("GoogleBooks-token");
+		if(token!=null && !"".equals(token)) {
+			request.setAttribute("logged", true);
+			GoogleBooksResource rc= new GoogleBooksResource(token);
+			List<Item> lista= rc.getListaEstanteria(2);
+			boolean stat= false;
+			for(Item i : lista) {
+				stat=i.getId().equals(query);
+				if(stat) {
+					request.setAttribute("estado", stat);
+					break;
+				}
+			}
+		}
 		
 		GoogleBooksResource google= new GoogleBooksResource();
 		Item books= google.getBook(query);
@@ -48,6 +61,7 @@ public class bookShowController extends HttpServlet  {
 		
 
 		if ( books!=null ){
+			
 			String title = books.getVolumeInfo().getTitle();
 			String isbn="";
 			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {

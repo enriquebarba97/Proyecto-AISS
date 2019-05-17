@@ -4,8 +4,8 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <context-param>
-	<param-name>resteasy.servlet.mapping.prefix</param-name>
-	<param-value>/api</param-value>
+    <param-name>resteasy.servlet.mapping.prefix</param-name>
+    <param-value>/api</param-value>
   </context-param>
   <servlet>
     <servlet-name>HelloWorld</servlet-name>
@@ -103,18 +103,17 @@
     <url-pattern>/redditNewPost</url-pattern>
   </servlet-mapping>
   <servlet>
-	<servlet-name>Resteasy</servlet-name>
-	<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
-	<init-param>
-		<param-name>javax.ws.rs.Application</param-name>
-		<param-value>aiss.api.BookAssistantApplication</param-value>
-	</init-param>
+    <servlet-name>Resteasy</servlet-name>
+    <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>aiss.api.BookAssistantApplication</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
-	<servlet-name>Resteasy</servlet-name>
-	<url-pattern>/api/*</url-pattern>
+    <servlet-name>Resteasy</servlet-name>
+    <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <servlet-name>GoogleBooksAuthController</servlet-name>
@@ -144,5 +143,15 @@
   <servlet-mapping>
     <servlet-name>GoogleBooksOAuth2Callback</servlet-name>
     <url-pattern>/oauth2callback/GoogleBooks</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BookShelfControlller</display-name>
+    <servlet-name>BookShelfControlller</servlet-name>
+    <servlet-class>aiss.controller.BookShelfControlller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BookShelfControlller</servlet-name>
+    <url-pattern>/bookShelfControlller</url-pattern>
   </servlet-mapping>
 </web-app>

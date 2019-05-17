@@ -30,7 +30,27 @@
 <span>Precio: <c:out value="${books.saleInfo.listPrice.amount}"/> &nbsp <c:out value="${books.saleInfo.listPrice.currencyCode}"/> </span>
 <br>
 <a href="/MerchController?title=${requestScope.title}">Ver productos relacionados</a>
+<c:choose>
+<c:when test="${not empty requestScope.logged}">
+<form action="/bookShelfControlller">
+<input type="hidden" name="volumeId" value="${books.id}">
+	<c:choose>
+	
+		<c:when test="${empty requestScope.estado}">
+			<input type="submit" name="add" value="añadir">
 
+		</c:when>
+		<c:otherwise>
+		<input type="submit" name="remove" value="eliminar">
+		</c:otherwise>
+	</c:choose>
+	
+</form>
+</c:when>
+<c:otherwise>
+ <a href="/AuthController/GoogleBooks"> Logueate </a>
+</c:otherwise>
+</c:choose>
 </aside>
 <div class="separador">
 <fieldset class="lista">
