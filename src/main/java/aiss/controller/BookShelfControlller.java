@@ -41,9 +41,7 @@ public class BookShelfControlller extends HttpServlet {
 				rc.removeBook(id, 2);
 			}
 		}
-		
-		request.getRequestDispatcher("/bookShowController?volumeID="+id).forward(request, response);
-		
+		response.sendRedirect("/bookShowController?volumeID="+id);
 	}
 
 	/**
