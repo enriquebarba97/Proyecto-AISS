@@ -48,7 +48,7 @@ public class bookShowController extends HttpServlet  {
 			request.setAttribute("logged", true);
 			GoogleBooksResource rc= new GoogleBooksResource(token);
 			List<Item> lista= rc.getListaEstanteria(2);
-			log.info("Libros por leer: "+ lista);
+			log.info("Libros por leer: "+ lista.size());
 			boolean stat= false;
 			for(Item i : lista) {
 				stat=i.getId().equals(query);
