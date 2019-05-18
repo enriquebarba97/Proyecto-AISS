@@ -13,7 +13,7 @@
     <div class="loguea">
 	<c:choose>
 		<c:when test='${sessionScope["Reddit-user"] != null}'>
-		<div>
+		<div class="letra">
     		Bienvenido <c:out value='${sessionScope["Reddit-user"]}'/> 
     	</div>
     	<div>

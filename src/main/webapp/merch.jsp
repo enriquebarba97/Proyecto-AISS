@@ -12,18 +12,20 @@
 
 <div >
 	<fieldset class="lista">
-<legend style="color:#FACC70;"> Merchandaising</legend>
+<legend class="letras" style="color:#FACC70;"> Merchandaising</legend>
+
 
 <c:forEach items="${requestScope.productos}" var="prod">
 <aside class="lista3">
 <img id="cover" alt="merch" src='<c:out value="${prod.imageUrl}"></c:out>'/><br>
-<span>Producto: <c:out value="${prod.title}"></c:out> </span><br>
+<div class="espacios">
+<span style="font-weight: bold;"><c:out value="${prod.title}"></c:out> </span><br>
 <c:forEach items="${prod.priceOptions}" var="precio">
 
-<span>Precios: <c:out value="${precio.amount.value}"></c:out><c:out value="${precio.amount.currency}"></c:out>  </span><br>
+<span >Precios: <c:out value="${precio.amount.value}"></c:out><c:out value="${precio.amount.currency}"></c:out>  </span><br>
 
 </c:forEach>
-
+</div>
 </aside>
 </c:forEach>
 

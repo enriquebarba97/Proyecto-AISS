@@ -1,12 +1,15 @@
 body{
+
 background-image: url("/img/libro.jpg");
+
+
 }
 .logo{
     
 	width: 20%;
 	display:block;
 	margin:auto;
-	margin-right: 420px;
+	margin-right: 27.75%;
 	border-radius: 20px;
 }
 .busqueda {
@@ -45,9 +48,7 @@ background-image: url("/img/libro.jpg");
 	display:block;
 	margin:auto;
 }
-body{
-	background-color: gray;
-}
+
 a{	
 	
 	color: white;
@@ -57,7 +58,23 @@ a{
 	border: solid 3px #FFC471;
 	padding: 2%;
 	min-width: 30%;
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(253, 253, 253, 0.5);
+	
+}
+.lista5 {
+	border-radius: 10px;
+	border: solid 3px #FFC471;
+	padding: 2%;
+	min-width: 30%;
+	background-color: rgba(253, 253, 253, 0.1);
+	
+}
+.lista4 {
+	border-radius: 10px;
+	border: solid 3px #FFC471;
+	padding: 2%;
+	min-width: 30%;
+	background-color: rgba(180, 61, 37, 0.4);
 	
 }
 legend {
@@ -80,7 +97,7 @@ legend {
 	margin-top:7px;
 	margin-right:10px;
 	
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.6);
 	border: solid 3px #FFC471;
 	width: 300px;
 	height: 370px;
@@ -91,6 +108,12 @@ legend {
 #cover{
 	width: 180px;
 	height: 210px;
+	padding: 20px 50px 5px;
+}
+#cover2{
+	width: 180px;
+	height: 210px;
+	padding: 0.5px  5px 3px;
 }
 #video_background { 
 	position: absolute; 
@@ -128,3 +151,52 @@ legend {
 
 }
 .estilotextarea {width:600px;height:500px;border: 2px solid #FFC471;}
+
+.espacios{
+	padding:5px 10px 5px;
+	color: #333333;
+    font-family: Century Gothic, sans-serif;
+    font-size: 12pt;
+}
+
+.espacios2{
+	padding:5px 10px 5px;
+	color: #333333;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    font-size: 12pt;
+}
+.letra{
+	 font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	 color:white;
+}
+
+
+nav.acceder ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  
+}
+
+nav.acceder #login{
+  display: inline;
+  font-size: 16px;
+  padding: 2px 10px;
+  text-decoration: none;
+  border: 1px solid #fff;
+  font-weight: 600
+
+}
+nav.acceder #login-content {
+
+  top: 26px;
+  right: 0;
+  z-index: 999;    
+
+  padding: 15px;
+  border-radius: 10px 0 10px 10px;
+  width: 550px; 
+  display: none;
+}
+}
