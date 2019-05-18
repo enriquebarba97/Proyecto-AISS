@@ -94,7 +94,7 @@ public class GoogleBooksResource {
 	}
 	//Limitada a 40
 	public BookSearch getListaEstanteria(Integer idEstanteria, Integer startIndex, Integer maxresult) {
-		String uri= URI_ESTANT+idEstanteria+"/volumes?startIndex="+startIndex+"&maxResults="+maxresult+"&key="+ GOOGLE_API ;		
+		String uri= URI_ESTANT+idEstanteria+"/volumes?startIndex="+startIndex+"&maxResults="+maxresult+"&country=ES&key="+ GOOGLE_API ;		
 		ClientResource cr = new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		BookSearch m = null;
@@ -113,7 +113,7 @@ public class GoogleBooksResource {
 
 	public boolean addBook(String volumeId, Integer idEstanteria ) {
 		boolean result = false;
-		String uri= URI_ESTANT+idEstanteria+"/addVolume?volumeId="+volumeId+"&key="+GOOGLE_API;
+		String uri= URI_ESTANT+idEstanteria+"/addVolume?volumeId="+volumeId+"&country=ES&key="+GOOGLE_API;
 		ClientResource cr =  new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);
@@ -132,7 +132,7 @@ public class GoogleBooksResource {
 	}
 	public boolean removeBook(String volumeId, Integer idEstanteria) {
 		boolean result = false;
-		String uri= URI_ESTANT+idEstanteria+"/removeVolume?volumeId="+volumeId+"&key="+GOOGLE_API;
+		String uri= URI_ESTANT+idEstanteria+"/removeVolume?volumeId="+volumeId+"&country=ES&key="+GOOGLE_API;
 		ClientResource cr =  new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);
