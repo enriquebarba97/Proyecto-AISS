@@ -23,7 +23,7 @@ public interface BookRepository {
 	public void updateBook(Book b);
 	public void deleteBook(String isbn);
 	public void deleteBooksPerAuthor(String author);
-	public Collection<Review> getAll(String isbn);
+	public Collection<Review> getAll();
 	public void addReview(String isbn, String id);
 	public void removeReview(String isbn, String author); 
 	public Collection<Review>getReviewsPerTitle(String title);

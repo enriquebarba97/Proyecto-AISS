@@ -45,10 +45,10 @@ public class ReviewResource {
 	
 	@GET
 	@Produces("application/json")
-	public Collection<Review> getAll(String isbn)
+	public Collection<Review> getAll()
 	{
 		
-		return repository.getAll(isbn);
+		return repository.getAll();
 	}
 	
 	@GET

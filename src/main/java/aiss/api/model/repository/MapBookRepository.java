@@ -46,31 +46,31 @@ public void init() {
 	addReview(review1);
 	
 	Review review2 = new Review();
-	review1.setTitle("Los pilares de la Tierra");
-	review1.setAuthor("Eduardo Gamboa");
-	review1.setReview_count(5);
-	review1.setRelease_date(LocalDate.parse("2018-10-02"));
-	review1.setCritic_review("El libro es una joya de la literatura, los personajes están tan bien diseñados"
+	review2.setTitle("Los pilares de la Tierra");
+	review2.setAuthor("Eduardo Gamboa");
+	review2.setReview_count(5);
+	review2.setRelease_date(LocalDate.parse("2018-10-02"));
+	review2.setCritic_review("El libro es una joya de la literatura, los personajes están tan bien diseñados"
 			+ " que te encariñas con unos y odias a otros. La ambientación en la edad media es excelente y tiene"
 			+ " un gran final. Recomendado para todo amante de los libros históricos y de fantasía."
 			+ " De los mejores libros qué he leído.");
 	addReview(review2);
 	
 	Review review3 = new Review();
-	review1.setTitle("Los pilares de la Tierra");
-	review1.setAuthor("Lla");
-	review1.setReview_count(2);
-	review1.setRelease_date(LocalDate.parse("2018-02-20"));
-	review1.setCritic_review("Para mi gusto es un libro sobrevalorado. Me he aburrido leyéndolo."
+	review3.setTitle("Los pilares de la Tierra");
+	review3.setAuthor("Lla");
+	review3.setReview_count(2);
+	review3.setRelease_date(LocalDate.parse("2018-02-20"));
+	review3.setCritic_review("Para mi gusto es un libro sobrevalorado. Me he aburrido leyéndolo."
 			+ " Demasiada descripción y demasiadas páginas. No lo he disfrutado mucho, la verdad.");
 	addReview(review3);
 	
 	Review review4 = new Review();
-	review1.setTitle("LA LLAMADA DE CTHULHU");
-	review1.setAuthor("Alexander");
-	review1.setReview_count(5);
-	review1.setRelease_date(LocalDate.parse("2018-07-16"));
-	review1.setCritic_review("Me aterró, así de simple. En un principio no me causó miedo en sí; "
+	review4.setTitle("LA LLAMADA DE CTHULHU");
+	review4.setAuthor("Alexander");
+	review4.setReview_count(5);
+	review4.setRelease_date(LocalDate.parse("2018-07-16"));
+	review4.setCritic_review("Me aterró, así de simple. En un principio no me causó miedo en sí; "
 			+ "fue cuando decidí ponerme al 100% en el lugar del personaje cuando me apercibí del horror "
 			+ "que se vislumbraba en cada palabra acerca del relato. La forma en que se desarrolla hace que "
 			+ "en ningún momento llegue a tornarse pesada la lectura, y uno queda atrapado por no saber cómo "
@@ -80,21 +80,21 @@ public void init() {
 	addReview(review4);
 	
 	Review review5 = new Review();
-	review1.setTitle("LA LLAMADA DE CTHULHU");
-	review1.setAuthor("Salvador Morales León");
-	review1.setReview_count(2);
-	review1.setRelease_date(LocalDate.parse("2014-09-09"));
-	review1.setCritic_review("Pues me esperaba otra cosa. Terror. Y eso no nos lo ofrece este libro. "
+	review5.setTitle("LA LLAMADA DE CTHULHU");
+	review5.setAuthor("Salvador Morales León");
+	review5.setReview_count(2);
+	review5.setRelease_date(LocalDate.parse("2014-09-09"));
+	review5.setCritic_review("Pues me esperaba otra cosa. Terror. Y eso no nos lo ofrece este libro. "
 			+ "Es una narración interesante pero no llega a dar miedo ni nada por el estilo. "
 			+ "Los que busquen pasar miedo mientras leen no lean este libro.");
 	addReview(review5);
 	
 	Review review6 = new Review();
-	review1.setTitle("LA LLAMADA DE CTHULHU");
-	review1.setAuthor("Jorge");
-	review1.setReview_count(5);
-	review1.setRelease_date(LocalDate.parse("2013-11-28"));
-	review1.setCritic_review("Una estupenda obra con muy buena prosa y un manejo del ritmo impresionante, "
+	review6.setTitle("LA LLAMADA DE CTHULHU");
+	review6.setAuthor("Jorge");
+	review6.setReview_count(5);
+	review6.setRelease_date(LocalDate.parse("2013-11-28"));
+	review6.setCritic_review("Una estupenda obra con muy buena prosa y un manejo del ritmo impresionante, "
 			+ "Lovecraf trasciende el mundo tal y como lo conocemos para mostrarnos las más horribles y "
 			+ "desalentadoras posibilidades que se le puedan plantear al hombre. Su terror no solo comprende"
 			+ " el mismo relato, sino que ademas lleva al lector a una profunda reflexión sobre su posición en "
@@ -112,11 +112,11 @@ public void init() {
 	addBook(lpdt);
 	
 	Book lldc = new Book();
-	lpdt.setTitle("LA LLAMADA DE CTHULHU");
-	lpdt.setAuthor("H.P. Lovecraft");
-	lpdt.setIsbn("9788492837397");
-	lpdt.setRating(8);
-	lpdt.setPrecio(9.00);
+	lldc.setTitle("LA LLAMADA DE CTHULHU");
+	lldc.setAuthor("H.P. Lovecraft");
+	lldc.setIsbn("9788492837397");
+	lldc.setRating(8);
+	lldc.setPrecio(9.00);
 	addBook(lldc);
 	
 	//add reviews to books
@@ -219,9 +219,9 @@ public void init() {
 	}
 
 	@Override
-	public Collection<Review> getAll(String isbn) {
+	public Collection<Review> getAll() {
 		// TODO Auto-generated method stub
-		return getBook(isbn).getReviews();
+		return reviewMap.values();
 	}
 	
 	public Collection<Review>getReviewsPerTitle(String title){

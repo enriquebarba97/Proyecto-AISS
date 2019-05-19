@@ -23,7 +23,7 @@ import org.jboss.resteasy.spi.NotFoundException;
 import aiss.api.model.Book;
 import aiss.api.model.repository.BookRepository;
 import aiss.api.model.repository.MapBookRepository;
-
+@Path("/books")
 public class BookResource {
 	
 	/* Singleton */
@@ -43,14 +43,14 @@ public class BookResource {
 	}
 	
 	@GET
-	@Produces("/application.json")
+	@Produces("application/json")
 	public Collection<Book> getAll(){
 		return repository.getAllBooks();
 	}
 	
 	@GET
 	@Path("/{bookisbn}")
-	@Produces("/application.json")
+	@Produces("application/json")
 	public Book get(@PathParam("bookisbn") String isbn) {
 		Book b = repository.getBook(isbn);
 		if(b == null) {
@@ -59,16 +59,7 @@ public class BookResource {
 		return b;
 	}
 	
-	@GET
-	@Path("/{autor}")
-	@Produces("/application.json")
-	public Collection<Book> getAll(@PathParam("autor") String author) {
-		Collection<Book> books = repository.getBooksAuthor(author);
-		if(books == null) {
-			throw new NotFoundException("The books with Author="+ author +" were not found");
-		}
-		return books;
-	}
+	
 	
 	/////////////////PREGUNTAR LO DE GENERAR ISBN(ADDBOOK(BOOK))
 	@POST
