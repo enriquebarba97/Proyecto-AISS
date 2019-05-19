@@ -41,6 +41,12 @@
 		</form>
 	</div>
 	
+	<div class="separador"></div>
+	
+	<div class="contenedor">
+		<a class="api" href='/docs/index.html'> Ver documentación de la API</a>
+	</div>
+	
 	<div>
 	<video autoplay="autoplay" loop="loop"  id="video_background" preload="auto" muted="muted"/>
   		<source src="img/The Joy of Books.mp4" type="video/mp4" />

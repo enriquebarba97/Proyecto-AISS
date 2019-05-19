@@ -199,4 +199,14 @@ nav.acceder #login-content {
   width: 550px; 
   display: none;
 }
+.api {
+	font-size: 17px;
+	color: #34D896;
+	font-weight: bold;
+	
+}
+.contenedor{
+	vertical-align: middle;
+        text-align: center;
+}
 }
