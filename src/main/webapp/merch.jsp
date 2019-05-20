@@ -9,7 +9,11 @@
 <title>Merchandising</title>
 </head>
 <body>
+<div class="lista5">
 
+<div  style="float:right"> <a href="/index.jsp"> Inicio </a> &nbsp
+<a href="javascript:history.back(-1);"> Atrás </a> </div>
+</div> 
 <div >
 	<fieldset class="lista">
 <legend class="letras" style="color:#FACC70;"> Merchandaising</legend>

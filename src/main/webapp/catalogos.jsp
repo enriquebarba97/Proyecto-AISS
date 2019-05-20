@@ -29,6 +29,9 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
+	<div>
+	
+	</div>
 	</div>
     <img class="logo" alt="logo" src="img/prueba.png">
     </div >

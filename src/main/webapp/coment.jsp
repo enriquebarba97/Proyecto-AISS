@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <title>Coment</title>
 <script>
 			$(function(){
@@ -17,6 +21,11 @@
 			   });
 			});
 		</script>
+		<script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+  </script>
 </head>
 <body>
 
@@ -39,7 +48,9 @@
 		   </ul>
 		</nav>
 <div  style="float:right"> <a href="/index.jsp"> Inicio </a> &nbsp
-<a href="/MerchController?title=${requestScope.title}">Ver productos relacionados</a> </div>
+<a href="/MerchController?title=${requestScope.title}"> Productos relacionados</a> &nbsp
+<a href="javascript:history.back(-1);"> Atrás </a> 
+</div>
 </div> 
 
 
@@ -88,12 +99,32 @@
 
 <fieldset class="lista">
 <legend class="espacios2"  style="color:#FACC70;font-weight: bold;"> Críticas de <c:out value="${books.volumeInfo.title}"/> </legend>
-<ul>
+
 <div class="espacios2" >
+<div id="accordion">
+<c:choose>
+	
+<c:when test="${empty requestScope.reviews.book.criticReviews}">
+		
+		<p> No hay críticas sobre este título, lo sentimos </p>
+</c:when>
+<c:otherwise>
 <c:forEach items="${requestScope.reviews.book.criticReviews}" var="review">
-	<li><c:out value="${review.snippet}"/> (<c:out value="${review.source}"/>) </li>
+
+		
+		
+		<h3 class="wrap"> Crítica de  <c:out value="${review.source}"/> </h3>
+<p class="wrap2">
+	<c:out value="${review.snippet}"/> 
+</p>
+		
+
+
+
 </c:forEach>
-</ul>
+</c:otherwise>
+</c:choose>
+</div>
 </div>
 <br>
 </fieldset>
@@ -103,6 +134,12 @@
 <fieldset class="lista4">
 	<legend class="espacios2" style="font-weight: bold;"> Hilos sobre  <c:out value="${books.volumeInfo.title}"/> </legend>
 	<img style="height:35px; width:55px; border-radius:5px;" alt="reddit" src="img/red.jpg">
+	<c:choose>
+	<c:when test="${empty requestScope.posts}">
+	<p style="color:white;"> No hay hilos sobre este título, lo sentimos </p>
+	<p style="color:white;"> Te inivitamos a que seas un pionero y que comentes sobre este título en Reddit</p>
+	</c:when>
+	<c:otherwise>
 	<div class="espacios" >
 	<ul>
 		<c:forEach items="${requestScope.posts}" var="post">
@@ -110,6 +147,8 @@
 		</c:forEach>
 	</ul>
 	</div>
+	</c:otherwise>
+	</c:choose>
 	<br>
 	<form action="/redditNewPost" method="post">
 	<input type="hidden" name="title" value='<c:out value="${books.volumeInfo.title}"/>'>
