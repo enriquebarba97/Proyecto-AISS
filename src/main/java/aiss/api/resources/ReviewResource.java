@@ -1,16 +1,20 @@
 package aiss.api.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -20,6 +24,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
 
+import aiss.api.model.Listing;
 import aiss.api.model.Review;
 import aiss.api.model.repository.BookRepository;
 import aiss.api.model.repository.MapBookRepository;
@@ -27,7 +32,7 @@ import aiss.api.model.repository.MapBookRepository;
 
 
 
-@Path("/reviews")
+@Path("/books/{isbn}/reviews")
 public class ReviewResource {
 
 	public static ReviewResource _instance=null;
@@ -45,18 +50,26 @@ public class ReviewResource {
 	
 	@GET
 	@Produces("application/json")
-	public Collection<Review> getAll()
+	public Listing<Review> getAll(@PathParam("isbn") String isbn,
+			@QueryParam("startIndex") @DefaultValue("0") int startIndex,
+			@QueryParam("maxResults") @DefaultValue("5") int maxResults)
 	{
+		List<Review> results = new ArrayList<>(repository.getBook(isbn).getReviews());
+		maxResults = maxResults<=10 ? maxResults:10;
+		int endIndex = startIndex+maxResults<results.size() ? startIndex+maxResults:results.size();
+		Listing<Review> res = new Listing<Review>(results.size(), startIndex, maxResults, 
+				results.subList(startIndex, endIndex));
 		
-		return repository.getAll();
+		
+		return res;
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Review getPerId(@PathParam("id") String id)
+	public Review getPerId(@PathParam("isbn") String isbn, @PathParam("id") String id)
 	{
-		Review review = repository.getReview(id);
+		Review review = repository.getBook(isbn).getReview(id);
 		if(review == null) {
 			throw new NotFoundException("The review with id="+ id +" was not found");
 		}

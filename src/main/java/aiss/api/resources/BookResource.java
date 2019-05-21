@@ -1,16 +1,20 @@
 package aiss.api.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -21,6 +25,7 @@ import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
 
 import aiss.api.model.Book;
+import aiss.api.model.Listing;
 import aiss.api.model.repository.BookRepository;
 import aiss.api.model.repository.MapBookRepository;
 @Path("/books")
@@ -44,8 +49,16 @@ public class BookResource {
 	
 	@GET
 	@Produces("application/json")
-	public Collection<Book> getAll(){
-		return repository.getAllBooks();
+	public Listing<Book> getAll(@QueryParam("startIndex") @DefaultValue("0") int startIndex,
+			@QueryParam("maxResults") @DefaultValue("5") int maxResults){
+		List<Book> results = new ArrayList<>(repository.getAllBooks());
+		maxResults = maxResults<=10 ? maxResults:10;
+		int endIndex = startIndex+maxResults<results.size() ? startIndex+maxResults:results.size();
+		Listing<Book> res = new Listing<Book>(results.size(), startIndex, maxResults, 
+				results.subList(startIndex, endIndex));
+		
+		
+		return res;
 	}
 	
 	@GET
