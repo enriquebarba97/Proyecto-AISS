@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="icon" href="img/prueba.png">
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
@@ -81,11 +82,11 @@
 	<c:choose>
 	
 		<c:when test="${empty requestScope.estado}">
-			<input type="submit" name="envio" value="Añadir a libros por leer">
+			<button type="submit" name="envio" value="añadir">Añadir a libros por leer</button>
 
 		</c:when>
 		<c:otherwise>
-		<input type="submit" name="envio" value="Eliminar de libros por leer">
+		<button type="submit" name="envio" value="eliminar">Eliminar de libros por leer</button>
 		</c:otherwise>
 	</c:choose>
 	

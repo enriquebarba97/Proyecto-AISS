@@ -26,6 +26,7 @@ import org.jboss.resteasy.spi.NotFoundException;
 
 import aiss.api.model.Book;
 import aiss.api.model.Listing;
+import aiss.api.model.Review;
 import aiss.api.model.repository.BookRepository;
 import aiss.api.model.repository.MapBookRepository;
 @Path("/books")
@@ -143,5 +144,30 @@ public class BookResource {
 			repository.deleteBooksPerAuthor(author);
 		}
 		return Response.noContent().build();
+	}
+	
+	@POST
+	@Path("/{bookIsbn}")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response addReview(@Context UriInfo uriInfo,@PathParam("bookIsbn") String isbn, Review review) {
+		Book b = repository.getBook(isbn);
+		if (b == null) {
+			throw new NotFoundException("The book with ISBN="+ isbn +" was not found");
+		}
+		
+		
+		if(b.getReviews()==null) {
+			b.setReviews(new ArrayList<Review>());
+		}
+		
+		repository.addReview(review);
+		repository.addReview(isbn, review.getId());
+	
+		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
+		URI uri = ub.build(review.getId());
+		ResponseBuilder resp = Response.created(uri);
+		resp.entity(review);			
+		return resp.build();
 	}
 }
