@@ -17,7 +17,7 @@ public class AliExpressResourceTest {
 		assertNotNull("The search returned null", search);
 		assertNotNull("The review object is null", search.getItems());
 		
-		System.out.println("The search for " + query +"'s items returned " + search.getItems().size() + " reviews");
+		System.out.println("The search for " + query +"'s items returned " + search.getItems().size() + " items");
 		System.out.println(search.getItems().get(0).getTitle());
 	}
 

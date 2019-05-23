@@ -4,11 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aiss.model.idreambooks.AcclaimedBook;
 import aiss.model.idreambooks.BookReviews;
 
+@Ignore
 public class IDreamBooksResourceTest {
 
 	@Test
