@@ -11,6 +11,7 @@ public class Review {
 	private Integer review_count;
 	private String genre;
 	private LocalDate release_date;
+	private LocalDate update_date;
 	private String critic_review;
 	
 	public Review(){
@@ -90,6 +91,12 @@ public class Review {
 	}
 	public void setCritic_review(String critic_review) {
 		this.critic_review = critic_review;
+	}
+	public LocalDate getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(LocalDate update_date) {
+		this.update_date = update_date;
 	}
 
 

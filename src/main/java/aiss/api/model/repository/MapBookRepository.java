@@ -133,6 +133,7 @@ public void init() {
 	public void addReview(Review r) {
 		String id = "r" + index++;
 		r.setId(id);
+		r.setRelease_date(LocalDate.now());
 		reviewMap.put(id, r);
 	}
 
@@ -151,13 +152,19 @@ public void init() {
 	@Override
 	public void updateReview(Review r) {
 		Review review = reviewMap.get(r.getId());
-		review.setTitle(r.getTitle());
-		review.setSub_title(r.getSub_title());
-		review.setAuthor(r.getAuthor());
-		review.setReview_count(r.getReview_count());
-		review.setGenre(r.getGenre());
-		review.setRelease_date(r.getRelease_date());
-		review.setCritic_review(r.getCritic_review());	
+		if(r.getTitle()!=null)
+			review.setTitle(r.getTitle());
+		if(r.getSub_title()!=null)
+			review.setSub_title(r.getSub_title());
+		if(r.getAuthor()!=null)
+			review.setAuthor(r.getAuthor());
+		if(r.getReview_count()!=null)
+			review.setReview_count(r.getReview_count());
+		if(r.getGenre()!=null)
+			review.setGenre(r.getGenre());
+		if(r.getCritic_review()!=null)
+			review.setCritic_review(r.getCritic_review());	
+		review.setUpdate_date(LocalDate.now());
 	}
 
 

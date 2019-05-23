@@ -90,25 +90,6 @@ public class ReviewResource {
 		return review;
 	}
 	///////¿CAMBIAR GET EN EL RECURSO REVIEW? HAY MAS DE 1 REVIEW POR LIBRO¿NO?
-	@GET
-	@Path("/{title}")
-	@Produces("application/json")
-	public Listing<Review> get(@PathParam("title") String title,
-			@QueryParam("startIndex") @DefaultValue("0") int startIndex,
-			@QueryParam("maxResults") @DefaultValue("5") int maxResults)
-	{
-		List<Review> reviews = new ArrayList<Review>(repository.getReviewsPerTitle(title));
-		if(reviews.isEmpty()) {
-			throw new NotFoundException("The" + title +"´s reviews were not found");
-		}
-		maxResults = maxResults<=10 ? maxResults:10;
-		int endIndex = startIndex+maxResults<reviews.size() ? startIndex+maxResults:reviews.size();
-		Listing<Review> res = new Listing<Review>(reviews.size(), startIndex, maxResults, 
-				reviews.subList(startIndex, endIndex));
-		
-		
-		return res;
-	}
 	
 	@POST
 	@Consumes("application/json")
