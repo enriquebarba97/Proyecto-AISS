@@ -63,7 +63,6 @@ public class bookShowController extends HttpServlet  {
 
 		if ( books!=null ){
 			
-			log.info("Precio: " + books.getSaleInfo().getListPrice().getAmount());
 			String title = books.getVolumeInfo().getTitle();
 //			String isbn="";
 //			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {
