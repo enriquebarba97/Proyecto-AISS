@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="charset=UTF-8">
+<link rel="icon" href="img/prueba.png">
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <title>Merchandising</title>
 </head>

@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="icon" href="img/prueba.png">
 	<link rel="stylesheet" type="text/css" href="/css/general.css">
 	<title>Error</title>
 </head>
