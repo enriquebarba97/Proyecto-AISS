@@ -10,13 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import aiss.model.googlebooks.IndustryIdentifier;
 import aiss.model.googlebooks.Item;
-import aiss.model.idreambooks.BookReviews;
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
 import aiss.model.resources.GoogleBooksResource;
-import aiss.model.resources.IDreamBooksResource;
 import aiss.model.resources.RedditResource;
 
 public class bookShowController extends HttpServlet  {
@@ -66,17 +63,21 @@ public class bookShowController extends HttpServlet  {
 
 		if ( books!=null ){
 			
+			log.info("Precio: " + books.getSaleInfo().getListPrice().getAmount());
 			String title = books.getVolumeInfo().getTitle();
-			String isbn="";
-			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {
-				if(id.getType().equals("ISBN_13")) {
-					isbn = id.getIdentifier();
-					break;
-				}
-			}
+//			String isbn="";
+//			for(IndustryIdentifier id:books.getVolumeInfo().getIndustryIdentifiers()) {
+//				if(id.getType().equals("ISBN_13")) {
+//					isbn = id.getIdentifier();
+//					break;
+//				}
+//			}
 			// Reviews del libro
-			IDreamBooksResource iDreamBooks = new IDreamBooksResource();
-			BookReviews reviews = iDreamBooks.getReviews(isbn);
+//			IDreamBooksResource iDreamBooks = new IDreamBooksResource();
+//			BookReviews reviews = iDreamBooks.getReviews(isbn);
+//			if(reviews != null) {
+//				request.setAttribute("reviews", reviews);
+//			}
 			
 			// Posts en Reddit
 			RedditResource reddit = new RedditResource();
@@ -86,9 +87,7 @@ public class bookShowController extends HttpServlet  {
 			request.setAttribute("books", books);
 			
 			
-			if(reviews != null && reddit != null ) {
-				
-				request.setAttribute("reviews", reviews);
+			if(reddit != null ) {
 				request.setAttribute("posts", posts.getData().getChildren());
 				request.setAttribute("title", title);
 			}

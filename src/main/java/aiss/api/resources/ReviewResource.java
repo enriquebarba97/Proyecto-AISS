@@ -2,8 +2,8 @@ package aiss.api.resources;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,9 +32,11 @@ import aiss.api.model.repository.MapBookRepository;
 
 
 
-@Path("/books/{isbn}/reviews")
+@Path("/reviews")
 public class ReviewResource {
-
+	
+	private static final Logger log = Logger.getLogger(ReviewResource.class.getName());
+	
 	public static ReviewResource _instance=null;
 		BookRepository repository;
 		
@@ -50,11 +52,22 @@ public class ReviewResource {
 	
 	@GET
 	@Produces("application/json")
-	public Listing<Review> getAll(@PathParam("isbn") String isbn,
-			@QueryParam("startIndex") @DefaultValue("0") int startIndex,
-			@QueryParam("maxResults") @DefaultValue("5") int maxResults)
+	public Listing<Review> getAll(@QueryParam("startIndex") @DefaultValue("0") int startIndex,
+			@QueryParam("maxResults") @DefaultValue("5") int maxResults,
+			@QueryParam("critic") @DefaultValue("") String critic)
 	{
-		List<Review> results = new ArrayList<>(repository.getBook(isbn).getReviews());
+		log.info("Critic filter: " + critic);
+		List<Review> unfiltered = new ArrayList<>(repository.getAllReviews());
+		List<Review> results = null;
+		if(!critic.equals("")) {
+			results = new ArrayList<Review>();
+			for(Review r:unfiltered) {
+				if(r.getAuthor().toLowerCase().contains(critic.toLowerCase()))
+					results.add(r);
+			}
+		}else {
+			results = unfiltered;
+		}
 		maxResults = maxResults<=10 ? maxResults:10;
 		int endIndex = startIndex+maxResults<results.size() ? startIndex+maxResults:results.size();
 		Listing<Review> res = new Listing<Review>(results.size(), startIndex, maxResults, 
@@ -67,9 +80,9 @@ public class ReviewResource {
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Review getPerId(@PathParam("isbn") String isbn, @PathParam("id") String id)
+	public Review getPerId(@PathParam("id") String id)
 	{
-		Review review = repository.getBook(isbn).getReview(id);
+		Review review = repository.getReview(id);
 		if(review == null) {
 			throw new NotFoundException("The review with id="+ id +" was not found");
 		}
@@ -80,14 +93,21 @@ public class ReviewResource {
 	@GET
 	@Path("/{title}")
 	@Produces("application/json")
-	public Collection<Review> get(@PathParam("title") String title)
+	public Listing<Review> get(@PathParam("title") String title,
+			@QueryParam("startIndex") @DefaultValue("0") int startIndex,
+			@QueryParam("maxResults") @DefaultValue("5") int maxResults)
 	{
-		Collection<Review> reviews = repository.getReviewsPerTitle(title);
-		if(reviews == null) {
+		List<Review> reviews = new ArrayList<Review>(repository.getReviewsPerTitle(title));
+		if(reviews.isEmpty()) {
 			throw new NotFoundException("The" + title +"´s reviews were not found");
 		}
+		maxResults = maxResults<=10 ? maxResults:10;
+		int endIndex = startIndex+maxResults<reviews.size() ? startIndex+maxResults:reviews.size();
+		Listing<Review> res = new Listing<Review>(reviews.size(), startIndex, maxResults, 
+				reviews.subList(startIndex, endIndex));
 		
-		return reviews;
+		
+		return res;
 	}
 	
 	@POST

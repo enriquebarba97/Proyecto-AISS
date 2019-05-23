@@ -39,7 +39,7 @@ public class GoogleBooksResource {
 		//Poner parametro de entrada en formato correcto
 		String titulo= URLEncoder.encode(query, "UTF-8");
 		//Introducir url de consulta
-		String uri="https://www.googleapis.com/books/v1/volumes?q="+titulo+"&printType=books&country=ES&key="+GOOGLE_API;
+		String uri="https://www.googleapis.com/books/v1/volumes?q="+titulo+"&printType=books&country=US&key="+GOOGLE_API;
 		log.log(Level.FINE,"Google_uri:"+uri);
 		//Hacer peticion al servicio REST
 		ClientResource cr= new ClientResource(uri);
@@ -55,7 +55,7 @@ public class GoogleBooksResource {
 	}
 	public Item getBook(String volumeID) throws UnsupportedEncodingException{
 		
-		String uri="https://www.googleapis.com/books/v1/volumes/"+volumeID+"?country=ES&projection=full&key="+GOOGLE_API;
+		String uri="https://www.googleapis.com/books/v1/volumes/"+volumeID+"?country=US&projection=full&key="+GOOGLE_API;
 		ClientResource cr= new ClientResource(uri);
 		Item m = null;
 		
@@ -94,7 +94,7 @@ public class GoogleBooksResource {
 	}
 	//Limitada a 40
 	public BookSearch getListaEstanteria(Integer idEstanteria, Integer startIndex, Integer maxresult) {
-		String uri= URI_ESTANT+idEstanteria+"/volumes?startIndex="+startIndex+"&maxResults="+maxresult+"&country=ES&key="+ GOOGLE_API ;		
+		String uri= URI_ESTANT+idEstanteria+"/volumes?startIndex="+startIndex+"&maxResults="+maxresult+"&country=US&key="+ GOOGLE_API ;		
 		ClientResource cr = new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		BookSearch m = null;
@@ -113,7 +113,7 @@ public class GoogleBooksResource {
 
 	public boolean addBook(String volumeId, Integer idEstanteria ) {
 		boolean result = false;
-		String uri= URI_ESTANT+idEstanteria+"/addVolume?volumeId="+volumeId+"&country=ES&key="+GOOGLE_API;
+		String uri= URI_ESTANT+idEstanteria+"/addVolume?volumeId="+volumeId+"&country=US&key="+GOOGLE_API;
 		ClientResource cr =  new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);
@@ -132,7 +132,7 @@ public class GoogleBooksResource {
 	}
 	public boolean removeBook(String volumeId, Integer idEstanteria) {
 		boolean result = false;
-		String uri= URI_ESTANT+idEstanteria+"/removeVolume?volumeId="+volumeId+"&country=ES&key="+GOOGLE_API;
+		String uri= URI_ESTANT+idEstanteria+"/removeVolume?volumeId="+volumeId+"&country=US&key="+GOOGLE_API;
 		ClientResource cr =  new ClientResource(uri);
 		ChallengeResponse chr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
 		chr.setRawValue(token);

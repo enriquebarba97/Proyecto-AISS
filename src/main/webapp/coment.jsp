@@ -81,11 +81,11 @@
 	<c:choose>
 	
 		<c:when test="${empty requestScope.estado}">
-			<input type="submit" name="envio" value="añadir">
+			<input type="submit" name="envio" value="Añadir a libros por leer">
 
 		</c:when>
 		<c:otherwise>
-		<input type="submit" name="envio" value="eliminar">
+		<input type="submit" name="envio" value="Eliminar de libros por leer">
 		</c:otherwise>
 	</c:choose>
 	
@@ -105,8 +105,15 @@
 <c:choose>
 	
 <c:when test="${empty requestScope.reviews.book.criticReviews}">
-		
-		<p> No hay críticas sobre este título, lo sentimos </p>
+		<h3 class="wrap"> Crítica de Ateav </h3>
+		<p class="wrap2">A mi todo lo que escribe este hombre me apasiona. Para los amantes de la historia es un regalo. Es cierto que es un topicazo y que todos sus libros siguen el mismo esquema pero si funciona para que cambiarlo??</p>
+	
+	<h3 class="wrap"> Crítica de Eduardo Gamboa </h3>
+		<p class="wrap2">El libro es una joya de la literatura, los personajes están tan bien diseñados que te encariñas con unos y odias a otros. La ambientación en la edad media es excelente y tiene un gran final. Recomendado para todo amante de los libros históricos y de fantasía. De los mejores libros qué he leído.</p>
+	
+	<h3 class="wrap"> Crítica de Lla </h3>
+		<p class="wrap2">Para mi gusto es un libro sobrevalorado. Me he aburrido leyéndolo. Demasiada descripción y demasiadas páginas. No lo he disfrutado mucho, la verdad.</p>
+			
 </c:when>
 <c:otherwise>
 <c:forEach items="${requestScope.reviews.book.criticReviews}" var="review">
@@ -128,7 +135,6 @@
 </div>
 <br>
 </fieldset>
-</div>
 <div class="separador2">
 
 <fieldset class="lista4">

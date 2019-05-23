@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import aiss.api.model.Book;
 import aiss.api.model.Review;
@@ -41,8 +40,8 @@ public void init() {
 	review1.setReview_count(5);
 	review1.setRelease_date(LocalDate.parse("2019-05-15"));
 	review1.setCritic_review("A mi todo lo que escribe este hombre me apasiona. Para los amantes de la"+
-	"historia es un regalo. Es cierto que es un topicazo y que todos sus libros siguen el mismo esquema"+
-	"pero si funciona para que cambiarlo??");
+	" historia es un regalo. Es cierto que es un topicazo y que todos sus libros siguen el mismo esquema"+
+	" pero si funciona para que cambiarlo??");
 	addReview(review1);
 	
 	Review review2 = new Review();
