@@ -1,0 +1,347 @@
+﻿swagger: '2.0'
+info:
+  description: API de Libros
+  version: 1.0.0
+  title: Book-Assistant-API
+  # put the contact info for your development or API team
+  contact:
+    email: you@your-company.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: Recurso Book
+  description: Operaciones disponibles sobre el recurso  libro
+- name: Recurso Review
+  description: Operaciones disponibles sobre el recurso review
+
+paths:
+  
+  /books/{bookisbn}:
+    post:
+      tags: 
+      - Recurso Book
+      summary: "Añadir una review al libro dado por isbn"
+      parameters:
+        - in: "path"
+          name: "bookisbn"
+          description: "ISBN del libro"
+          required: true
+          type: "string"
+      description: "Añade una review y la vincula al libro que posee el isbn dado"
+      produces:
+      - application/json
+      
+      
+      responses:
+        200:
+          description: Post succesfully
+          
+        400:
+          description: Bad Request
+    get:
+      tags:
+      - Recurso Book
+      summary: "Busca todos los libros que poseen ese isbn"
+      parameters:
+        - in: "path"
+          name: "bookisbn"
+          description: "ISBN del libro"
+          required: true
+          type: "string"
+  
+     
+      operationId: searchBooksIsbn
+      description: "Devuelve el libro que posee el isb dado"
+      produces:
+      - application/json
+      
+      
+      responses:
+        200:
+          description: Listado de todos los libros
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/books'
+        404:
+          description: Not found
+    delete:
+      tags: 
+      - Recurso Book
+      summary: "Elimina los libros con el isbn dado"
+      parameters:
+        - in: "path"
+          name: "bookisbn"
+          description: "ISBN del libro"
+          required: true
+          type: "string"
+      description: "Elimina Elimina el libro con isbn=bookIsbn."
+      responses:
+        200:
+          description: OK
+    
+  /books:
+    get:
+      tags:
+      - Recurso Book
+      summary: Busca todos los libros
+      operationId: searchBooks
+      description: |
+        No necesita parametros
+      produces:
+      - application/json
+      
+      
+      responses:
+        200:
+          description: Listado de todos los libros
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/books'
+        400:
+          description: bad input parameter
+          
+  
+   
+    post:
+      tags:
+      - Recurso Book
+      summary: Añade un nuevo libro
+      description: Añade un nuevo libro cuyos datos se pasan en el cuerpo de la petición en formato JSON
+      operationId: "addBook"
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Campos del libro
+        description: Añadir libro
+      
+       
+        schema:
+          $ref: '#/definitions/books'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+    put:
+      tags:
+      - Recurso Book
+      summary: "Método que actualiza un libro"
+      operationId: "updateBook"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "Book"
+          description: "Campos del libro"
+          required: true
+          schema:
+            $ref: '#/definitions/books'
+      responses:
+        204:
+          description: "Libro actualizado correctamente"
+        400:
+          description: "Petición incorrecta"
+        404:
+          description: "Libro no encontrado"
+        
+  /reviews/{reviewID}:
+    get:
+      tags:
+      - Recurso Review
+      summary: "Método que devuelve todas las reviews que contienen ese identificador"
+      operationId: "getAllReviewsById"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "reviewID"
+          description: "ID de la review"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Listado de todos las reviews"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/review"
+        404:
+          description: "Ningún resultado"
+    delete:
+      tags:
+      - Recurso Review
+      summary: "Método que elimina un perfil"
+      operationId: "removeReview"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "reviewID"
+          description: "ID de la review"
+          required: true
+          type: "string"
+      responses:
+        204:
+          description: "Perfil eliminado correctamente"
+        404:
+          description: "Perfil no encontrado"
+  /reviews:
+    get:
+      tags:
+      - Recurso Review
+      summary: "Método que devuelve todas las reviews del sistema"
+      operationId: "getAllReviews"
+      produces: 
+      - "application/json"
+      responses:
+        200:
+          description: "Listado de todos las reviews"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/review"
+        404:
+          description: "Ningún resultado"
+    put:
+      tags:
+      - Recurso Review
+      summary: "Método que actualiza una Review"
+      operationId: "updateReview"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "Review"
+          description: "Campos de la Review"
+          required: true
+          schema:
+            $ref: '#/definitions/review'
+      responses:
+        204:
+          description: "Review actualizado correctamente"
+        400:
+          description: "Petición incorrecta"
+        404:
+          description: "Review no encontrada"
+          
+    post:
+      tags:
+      - Recurso Review
+      summary: "Método que añade una review"
+      operationId: "addAnimeToMyList"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "MyReview"
+          description: "Campos de la review"
+          required: true
+          schema:
+            $ref: "#/definitions/review"
+        
+      responses:
+        201:
+          description: "Anime añadido correctamente"
+         
+        400:
+          description: "Petición incorrecta"
+    
+ 
+  
+definitions:
+  Listing: 
+    type: object
+    required: 
+    - totalResults
+    - startIndex
+    - maxResults
+    - results
+    properties:
+      totalResults:
+        type: integer
+        example:  3
+      startIndex:
+        type: integer
+        example: 0
+      maxResults:
+        type: integer
+        example: 5
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/books'
+  books:
+    type: object
+    required:
+    - title
+    - autor
+    - isbn
+    - rating
+    - precio
+    - reviews
+    properties:
+      title:
+        type: string
+        example: Harry Potter y la cámara secreta
+      author:
+        type: string
+        example: J k Rowling
+      isbn:
+        type: string
+        example: 9781781101322
+      rating:
+        type: number
+        example: 4.0
+      precio:
+        type: number
+        example: 8.99
+      reviews:
+        type: array
+        items:
+           $ref: '#/definitions/review'
+  review:
+    type: object
+    required:
+    - title
+    - sub_title
+    - review_count
+    - genre
+    - release_date
+    - critic_review
+    properties:
+      title:
+        type: string
+        example: Is Really Harry?
+      sub_title:
+        type: string
+        example:  A Memoir
+      review_count:
+        type: string
+        example: 5
+      genre:
+        type: string
+        example: Fantasy
+      release_date:
+        type: string
+        example: 2013-01-29
+      critic_review: 
+        type: string
+        example: Few 16-year-olds will appreciate the subtleties of this book,                but when they grow up, the more perspicacious among them may find the way
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Book-Assistant/Book-Assistant/1.0.0
+schemes:
+ - https
