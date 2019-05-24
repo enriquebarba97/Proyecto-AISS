@@ -1,6 +1,8 @@
 package aiss.api.resources;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,6 +25,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
+
 
 import aiss.api.model.Listing;
 import aiss.api.model.Review;
@@ -50,24 +53,48 @@ public class ReviewResource {
 			return _instance; 
 	}
 	
+	// AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER
+	// AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER
+	// AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER AÑADIR A SWAGGER
 	@GET
 	@Produces("application/json")
 	public Listing<Review> getAll(@QueryParam("startIndex") @DefaultValue("0") int startIndex,
 			@QueryParam("maxResults") @DefaultValue("5") int maxResults,
-			@QueryParam("critic") @DefaultValue("") String critic)
+			@QueryParam("critic") @DefaultValue("") String critic,
+			@QueryParam("from") @DefaultValue("") String from,
+			@QueryParam("until") @DefaultValue("") String until)
 	{
 		log.info("Critic filter: " + critic);
-		List<Review> unfiltered = new ArrayList<>(repository.getAllReviews());
-		List<Review> results = null;
+		List<Review> results = new ArrayList<>(repository.getAllReviews());
 		if(!critic.equals("")) {
-			results = new ArrayList<Review>();
-			for(Review r:unfiltered) {
+			List<Review> parcial = new ArrayList<Review>();
+			for(Review r:results) {
 				if(r.getAuthor().toLowerCase().contains(critic.toLowerCase()))
-					results.add(r);
+					parcial.add(r);
 			}
-		}else {
-			results = unfiltered;
+			results = parcial;
 		}
+		
+		if(!from.equals("")) {
+			List<Review> parcial = new ArrayList<Review>();
+			LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+			for(Review r:results) {
+				if(r.getRelease_date().isAfter(fromDate))
+					parcial.add(r);
+			}
+			results = parcial;
+		}
+		
+		if(!until.equals("")) {
+			List<Review> parcial = new ArrayList<Review>();
+			LocalDate untilDate = LocalDate.parse(until, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+			for(Review r:results) {
+				if(r.getRelease_date().isBefore(untilDate))
+					parcial.add(r);
+			}
+			results = parcial;
+		}
+		
 		maxResults = maxResults<=10 ? maxResults:10;
 		int endIndex = startIndex+maxResults<results.size() ? startIndex+maxResults:results.size();
 		Listing<Review> res = new Listing<Review>(results.size(), startIndex, maxResults, 

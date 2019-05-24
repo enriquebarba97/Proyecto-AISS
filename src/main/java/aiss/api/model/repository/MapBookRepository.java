@@ -133,7 +133,8 @@ public void init() {
 	public void addReview(Review r) {
 		String id = "r" + index++;
 		r.setId(id);
-		r.setRelease_date(LocalDate.now());
+		if(r.getRelease_date()==null)
+			r.setRelease_date(LocalDate.now());
 		reviewMap.put(id, r);
 	}
 
