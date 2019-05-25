@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import aiss.model.reddit.NewPost;
 import aiss.model.resources.RedditResource;
 import aiss.utility.RedditOAuth;
 
@@ -48,8 +47,12 @@ public class RedditSendPost extends HttpServlet {
 			String refresh_token = (String) request.getSession().getAttribute("Reddit-refresh");
 			accessToken = refrescarToken(accessToken, time, refresh_token, request);
 			RedditResource rs = new RedditResource(accessToken);
-			rs.postOnBooks(title, text, spoiler);
+			String men = rs.postOnBooks(title, text, spoiler);
+			log.info("Post status on controller: " + men);
 			
+			String volumeID = (String) request.getSession().getAttribute("volumeID");
+			request.setAttribute("men", men);
+			request.getRequestDispatcher("/bookShowController?volumeID="+volumeID).forward(request, response);;
 		}else {
 			log.info("Retrieving Reddit access token");
 			request.getRequestDispatcher("/RedditAuthController").forward(request, response);

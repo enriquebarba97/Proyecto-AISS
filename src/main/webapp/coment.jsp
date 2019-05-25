@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<title>Coment</title>
+<title>Información de <c:out value="${books.volumeInfo.title}"/></title>
 <script>
 			$(function(){
 		       $('#login').click(function(){
@@ -93,7 +93,10 @@
 </form>
 </c:when>
 <c:otherwise>
- <a href="/AuthController/GoogleBooks"> Logueate </a>
+<form action="/AuthController/GoogleBooks" method="get">
+<input type="hidden" name="volumeId" value="${books.id}">
+<button type="submit" name="envio" value="oauth">Acceder a Google Books</button>
+</form>
 </c:otherwise>
 </c:choose>
 </aside>
@@ -159,8 +162,12 @@
 	<br>
 	<form action="/redditNewPost" method="post">
 	<input type="hidden" name="title" value='<c:out value="${books.volumeInfo.title}"/>'>
+	<input type="hidden" name="volumeID" value='<c:out value="${books.id}"/>'>
 	<button type="submit">Postear en r/books</button>
 	</form>
+	<c:if test="${not empty requestScope.men}">
+		<p style="color:white;"><c:out value="${requestScope.men}"/><p>
+	</c:if>
 </fieldset>
 </div>
 

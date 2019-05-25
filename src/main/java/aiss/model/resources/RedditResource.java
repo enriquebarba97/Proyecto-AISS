@@ -12,6 +12,7 @@ import org.restlet.resource.ResourceException;
 import aiss.model.reddit.NewPost;
 import aiss.model.reddit.Post;
 import aiss.model.reddit.RedditModel;
+import aiss.model.reddit.RedditResponse;
 import aiss.model.reddit.RedditUser;
 
 public class RedditResource {
@@ -91,7 +92,7 @@ public class RedditResource {
 		
 	}
 		
-	public void postOnBooks(String title, String text, Boolean spoiler) throws UnsupportedEncodingException {
+	public String postOnBooks(String title, String text, Boolean spoiler) throws UnsupportedEncodingException {
 		title = URLEncoder.encode(title, "UTF-8");	
 		text = URLEncoder.encode(text, "UTF-8");
 		String uri = uriPost + "?api_type=json&kind=self&spoiler="+spoiler+"&sr=test&title="+title+
@@ -104,11 +105,21 @@ public class RedditResource {
 		
 		log.info("Posting to Reddit: " + uri);
 		try {
-			cr.post("");
-			log.info(cr.getResponse().getEntityAsText());
+			RedditResponse response = cr.post("", RedditResponse.class);
+			String result = null;
+			if(!response.getJson().getErrors().isEmpty()) {
+				result ="Ratelimit: " + response.getJson().getErrors().get(0).get(1);
+				log.info("Result of the submit: " +result);
+				return result;
+			}else {
+				result = "Post submitted succesfully";
+				log.info("Result of the submit: " +result);
+				return result;
+			}
 		}catch (ResourceException e) {
 			log.warning("ERROR: " + e.getMessage());
 			log.warning(e.getResponse().getEntityAsText());
+			return "There was an error submitting the post.";
 		}
 	}
 }

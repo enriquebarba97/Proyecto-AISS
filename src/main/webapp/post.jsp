@@ -39,7 +39,8 @@
 </div>
 <form class="formu" action="/redditSendPost" method="post">
 <fieldset class="lista">
-<input type="text" name="title" placeholder="Título de tu Post" value='${requestScope.title}'><br>
+<label for="titulo">Título del post: </label>
+<input id="titulo" type="text" name="title" size="50" placeholder="Título de tu Post" value="My opinion on ${requestScope.title}"><br>
 <br>
 <textarea id = "text" class="estilotextarea" name="text" placeholder="Escribe aquí tu post"></textarea><br>
 <br>

@@ -29,11 +29,13 @@ public class RedditNewPost extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.getSession().setAttribute("volumeID", request.getParameter("volumeID"));
 		String accessToken = (String) request.getSession().getAttribute("Reddit-token");
 		if(accessToken == null || "".equals(accessToken)) {
 			log.info("Retrieving Reddit access token");
 			request.getRequestDispatcher("/RedditAuthController").forward(request, response);
 		}else {
+			request.setAttribute("title", request.getParameter("title"));
 			request.getRequestDispatcher("/post.jsp").forward(request, response);
 		}
 	}

@@ -45,7 +45,8 @@ public class RedditOauth2Callback extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("/index.jsp");
+		String volumeID = (String) request.getSession().getAttribute("volumeID");
+		response.sendRedirect("/bookShowController?volumeID="+volumeID);
 	}
 
 	/**
