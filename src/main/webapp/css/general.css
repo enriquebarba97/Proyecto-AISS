@@ -12,6 +12,13 @@ background-image: url("/img/libro.jpg");
 	margin-right: 27.75%;
 	border-radius: 20px;
 }
+.logo5{
+    
+	width: 20%;
+	display:block;
+	margin:auto;
+	border-radius: 20px;
+}
 .busqueda {
 	
 	display:block;

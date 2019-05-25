@@ -49,6 +49,7 @@ public class RedditSendPost extends HttpServlet {
 			accessToken = refrescarToken(accessToken, time, refresh_token, request);
 			RedditResource rs = new RedditResource(accessToken);
 			rs.postOnBooks(title, text, spoiler);
+			
 		}else {
 			log.info("Retrieving Reddit access token");
 			request.getRequestDispatcher("/RedditAuthController").forward(request, response);

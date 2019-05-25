@@ -5,7 +5,7 @@ info:
   title: Book-Assistant-API
   # put the contact info for your development or API team
   contact:
-    email: you@your-company.com
+    email: bookassistant@gmail.com
 
   license:
     name: Apache 2.0
@@ -21,6 +21,27 @@ tags:
 paths:
   
   /books/{bookisbn}:
+    post:
+      tags: 
+      - Recurso Book
+      summary: "Añadir una review al libro dado por isbn"
+      parameters:
+        - in: "path"
+          name: "bookisbn"
+          description: "ISBN del libro"
+          required: true
+          type: "string"
+      description: "Añade una review y la vincula al libro que posee el isbn dado"
+      produces:
+      - application/json
+     
+      
+      responses:
+        200:
+          description: Post succesfully
+          
+        400:
+          description: Bad Request
     get:
       tags:
       - Recurso Book
@@ -33,8 +54,8 @@ paths:
           type: "string"
   
      
-      operationId: searchBooks2
-      description: Devuelve el libro que posee el isbn dado
+      operationId: searchBooksIsbn
+      description: "Devuelve el libro que posee el isb dado"
       produces:
       - application/json
       
@@ -62,6 +83,8 @@ paths:
       responses:
         200:
           description: OK
+        404:
+          description: Not found
     
   /books:
     get:
@@ -81,9 +104,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/books'
+              $ref: '#/definitions/ListingBook'
         400:
-          description: bad input parameter
+          description: bad request
           
   
    
@@ -101,8 +124,6 @@ paths:
       - in: body
         name: Campos del libro
         description: Añadir libro
-      
-       
         schema:
           $ref: '#/definitions/books'
       responses:
@@ -133,13 +154,13 @@ paths:
           description: "Petición incorrecta"
         404:
           description: "Libro no encontrado"
-          
+        
   /reviews/{reviewID}:
     get:
       tags:
       - Recurso Review
-      summary: "Método que devuelve todas las reviews que contienen ese título"
-      operationId: "getAllReviews"
+      summary: "Método que devuelve todas las reviews que contienen ese identificador"
+      operationId: "getAllReviewsById"
       produces:
         - "application/json"
       parameters:
@@ -157,25 +178,36 @@ paths:
               $ref: "#/definitions/review"
         404:
           description: "Ningún resultado"
-    delete:
+  /reviews:
+    get:
       tags:
       - Recurso Review
-      summary: "Método que elimina un perfil"
-      operationId: "removeReview"
-      consumes:
-        - "application/json"
-      parameters:
-        - in: "path"
-          name: "reviewID"
-          description: "ID de la review"
-          required: true
-          type: "string"
+      summary: "Método que devuelve todas las reviews del sistema"
+      operationId: "getAllReviews"
+      produces: 
+      - "application/json"
+      
+      parameters: 
+        - in: query
+          name: from
+          schema:
+            type: string
+          description: fecha de inicio de búsqueda de tipo DD/MM/YYYY
+        - in: query
+          name: until
+          schema:
+            type: string
+          description: fecha de fin de búsqueda de tipo DD/MM/YYYY
+       
       responses:
-        204:
-          description: "Perfil eliminado correctamente"
+        200:
+          description: "Listado de todos las reviews"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ListingReview"
         404:
-          description: "Perfil no encontrado"
-  /reviews:
+          description: "Ningún resultado"
     put:
       tags:
       - Recurso Review
@@ -201,35 +233,93 @@ paths:
     post:
       tags:
       - Recurso Review
-      summary: "Método que añade un anime a un perfil"
-      operationId: "addAnimeToMyList"
+      summary: "Método que añade una review"
+      operationId: "addReview"
       consumes:
         - "application/json"
       produces:
         - "application/json"
       parameters:
         - in: "body"
-          name: "MyReview"
+          name: "Cuerpo de la review"
           description: "Campos de la review"
-          required: true
+          
           schema:
             $ref: "#/definitions/review"
+        
+      responses:
+        201:
+          description: "Review añadida correctamente"
+         
+        400:
+          description: "Petición incorrecta"
+    
+    delete:
+      tags:
+      - Recurso Review
+      summary: "Método que elimina una review"
+      operationId: "removeReview"
+      consumes:
+        - "application/json"
+      parameters:
         - in: "path"
-          name: "idPerfil"
-          description: "ID del perfil"
+          name: "reviewID"
+          description: "ID de la review"
           required: true
           type: "string"
       responses:
-        201:
-          description: "Anime añadido correctamente"
-          schema:
-              $ref: "#/definitions/review"
-        400:
-          description: "Petición incorrecta"
+        204:
+          description: "Review eliminada correctamente"
+        404:
+          description: "Review no encontrada"
+  
+    
     
  
   
 definitions:
+  ListingBook: 
+    type: object
+    required: 
+    - totalResults
+    - startIndex
+    - maxResults
+    - results
+    properties:
+      totalResults:
+        type: integer
+        example:  3
+      startIndex:
+        type: integer
+        example: 0
+      maxResults:
+        type: integer
+        example: 5
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/books'
+  ListingReview: 
+    type: object
+    required: 
+    - totalResults
+    - startIndex
+    - maxResults
+    - results
+    properties:
+      totalResults:
+        type: integer
+        example:  3
+      startIndex:
+        type: integer
+        example: 0
+      maxResults:
+        type: integer
+        example: 5
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/review'
   books:
     type: object
     required:
@@ -238,25 +328,27 @@ definitions:
     - isbn
     - rating
     - precio
-    - review
+    - reviews
     properties:
       title:
         type: string
         example: Harry Potter y la cámara secreta
-      autor:
+      author:
         type: string
-        example: Widget Adapter
+        example: J k Rowling
       isbn:
         type: string
         example: 9781781101322
       rating:
-        type: string
+        type: number
         example: 4.0
       precio:
-        type: string
+        type: number
         example: 8.99
-      review:
-        $ref: '#/definitions/review'
+      reviews:
+        type: array
+        items:
+           $ref: '#/definitions/review'
   review:
     type: object
     required:
