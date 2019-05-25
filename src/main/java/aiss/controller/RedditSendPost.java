@@ -52,7 +52,10 @@ public class RedditSendPost extends HttpServlet {
 			
 			String volumeID = (String) request.getSession().getAttribute("volumeID");
 			request.setAttribute("men", men);
-			request.getRequestDispatcher("/bookShowController?volumeID="+volumeID).forward(request, response);;
+			if(volumeID==null)
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+			else
+				request.getRequestDispatcher("/bookShowController?volumeID="+volumeID).forward(request, response);;
 		}else {
 			log.info("Retrieving Reddit access token");
 			request.getRequestDispatcher("/RedditAuthController").forward(request, response);
