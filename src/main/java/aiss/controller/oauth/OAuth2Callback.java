@@ -29,8 +29,7 @@ public class OAuth2Callback extends AbstractAuthorizationCodeCallbackServlet {
 			throws ServletException, IOException {
 		String provider=getInitParameter("provider");
 		req.getSession().setAttribute(provider+"-token", credential.getAccessToken());
-		String volumeID = (String) req.getSession().getAttribute("volumeID");
-		OAuthRegistry.onAuthorizationSuccess(getInitParameter("onSuccess") + "?volumeID=" + volumeID, provider, credential, req, resp);				
+		OAuthRegistry.onAuthorizationSuccess(getInitParameter("onSuccess"), provider, credential, req, resp);				
 		
 	}
 

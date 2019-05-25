@@ -2,7 +2,6 @@ package aiss.controller.oauth;
 
 import java.io.IOException;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ import aiss.utility.OAuthRegistry;
  */
 public class GenericAuthController extends AbstractAuthorizationCodeServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(GenericAuthController.class.getName());
+
 	
 	
 	/**
@@ -35,9 +34,6 @@ public class GenericAuthController extends AbstractAuthorizationCodeServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String provider=getInitParameter("provider");
-		String volumeID = request.getParameter("volumeID");
-		log.info("Volumen origen: " + volumeID);
-		request.getSession().setAttribute("volumeID", request.getParameter("volumeID"));
 		request.getSession().setAttribute(provider+"-token", getCredential().getAccessToken());
 		OAuthRegistry.onAuthorizationSuccess(getInitParameter("onSuccess"), provider, getCredential(), request, response);											
 	}
